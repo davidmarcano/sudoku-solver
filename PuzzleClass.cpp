@@ -1,33 +1,30 @@
 #include <iostream>
 #include <string>
-using namespace std;
+#include "PuzzleClass.h"
 
-class Puzzle{
-	private:
-	int PuzzleArray[9][9] = {0};
-	int i = 0, j = 0;
-	
-	public:	
 
-	void StoreRow(int InputArray[]) {
+
+
+	void PuzzleClass::StoreRow(int InputArray[]) {
 		int ArraySize = sizeof(InputArray) / sizeof(InputArray[0]);
 		//reset i and j in case they were previously used
-		i = 0;
-		j = 0;
+		this->i = 0;
+		this->j = 0;
 			for(; j < ArraySize; ++j){
-			PuzzleArray[i][j] = InputArray[j];
+			this->PuzzleArray[i][j] = InputArray[j];
 			}
 			++i;
 		}
 
 	//returns true if the puzzle is proper, false otherwise.
-	bool CheckPuzzle(){
+	bool PuzzleClass::CheckPuzzle(){
 		int CheckCounter = 1;
 		int DoubleCounter = 0;
 		//reset i and j in case they were previously used
-		i = 0;
-		j = 0;
-		int ArraySize = sizeof(InputArray) / sizeof(InputArray[0]);
+		this->i = 0;
+		this->j = 0;
+		int ArraySize = sizeof(this->PuzzleArray[0]) / sizeof(this->PuzzleArray[0][0]);
+		std::cout << ArraySize << std::endl;
 		//this is to check the row validity
 		while (CheckCounter < 9) {
 			for (; i < ArraySize; ++i){
@@ -38,7 +35,7 @@ class Puzzle{
 						++DoubleCounter;
 					}
 					if (DoubleCounter > 1) {
-					cout << "This is not a proper Sudoku puzzle!" << endl;
+					std::cout << "This is not a proper Sudoku puzzle!" << std::endl;
 					return false;
 					}
 				}
@@ -47,8 +44,8 @@ class Puzzle{
 		}
 
 		//this is to check column validity
-		i = 0;
-		j = 0;
+		this->i = 0;
+		this->j = 0;
 		CheckCounter = 0;
 		DoubleCounter = 0;
 		while (CheckCounter < 9) {
@@ -59,7 +56,7 @@ class Puzzle{
 						++DoubleCounter;
 					}
 					if (DoubleCounter > 1) {
-					cout << "This is not a proper Sudoku puzzle!" << endl;
+					std::cout << "This is not a proper Sudoku puzzle!" << std::endl;
 					return false;
 					}
 				}
@@ -68,14 +65,14 @@ class Puzzle{
 		}
 		
 		//this is to check box validity
-		i = 0;
-		j = 0;
+		this->i = 0;
+		this->j = 0;
 		int Squarei = 0;
 		int Squarej = 0;
 		CheckCounter = 0;
 		DoubleCounter = 0;
 		//squareCounter is the index of the square within the 3x3 puzzle
-		SquareCounter = 0;
+		int SquareCounter = 0;
 		while (SquareCounter < 9) {
 			for (;Squarei < (ArraySize / 3); ++Squarei) {
 				//reset Squarej when moving to the next row of Squares
@@ -92,8 +89,8 @@ class Puzzle{
 								if (PuzzleArray[i + (3 * Squarei)][j + (3 * Squarej)] == CheckCounter) {
 								++DoubleCounter;
 								}	
-								if DoubleCounter > 1{
-								cout << "This is not a proper Sudoku puzzle!" << endl;
+								if (DoubleCounter > 1) {
+								std::cout << "This is not a proper Sudoku puzzle!" << std::endl;
 								return false;
 								}
 							}	
@@ -105,12 +102,12 @@ class Puzzle{
 			++SquareCounter;
 		}
 		
-		cout<< "The entered Sudoku board is proper." << endl;
+		std::cout<< "The entered Sudoku board is proper." << std::endl;
 		return true;
 	}				
 	
-	void SolvePuzzle(){
-			
+	void PuzzleClass::SolvePuzzle(){
+			std::cout << "You've solved the puzzle!" << std::endl;
 	}
 			
 			
@@ -127,6 +124,3 @@ class Puzzle{
 			
 			
 			
-			
-	
-}
