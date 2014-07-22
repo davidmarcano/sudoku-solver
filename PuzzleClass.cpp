@@ -5,74 +5,96 @@ using namespace std;
 class Puzzle{
 	private:
 	int PuzzleArray[9][9] = {0};
+	int i = 0, j = 0;
 	
-	public:
-	int RowIndex = 0;
-	int ColumnIndex = 0;
-	
+	public:	
 
 	void StoreRow(int InputArray[]) {
 		int ArraySize = sizeof(InputArray) / sizeof(InputArray[0]);
-			for(; ColumnIndex < ArraySize; ++ColumnIndex){
-			PuzzleArray[RowIndex][ColumnIndex] = InputArray[ColumnIndex];
+		//reset i and j in case they were previously used
+		i = 0;
+		j = 0;
+			for(; j < ArraySize; ++j){
+			PuzzleArray[i][j] = InputArray[j];
 			}
-			++RowIndex;
+			++i;
 		}
 
-	void CheckPuzzle(){
-		int CheckCounter = 0;
+	//returns true if the puzzle is proper, false otherwise.
+	bool CheckPuzzle(){
+		int CheckCounter = 1;
 		int DoubleCounter = 0;
-		while CheckCounter < 9{
-			for (; RowIndex < ArraySize; ++RowIndex){
-			DoubleCounter = 0;
-				for (; ColumnIndex < ArraySize; ++ColumnIndex){
-					if PuzzleArray[RowIndex][ColumnIndex] == CheckCounter{
+		//reset i and j in case they were previously used
+		i = 0;
+		j = 0;
+		int ArraySize = sizeof(InputArray) / sizeof(InputArray[0]);
+		//this is to check the row validity
+		while (CheckCounter < 9) {
+			for (; i < ArraySize; ++i){
+				//resets DoubleCounter when moving from row to row
+				DoubleCounter = 0;
+				for (; j < ArraySize; ++j){
+					if (PuzzleArray[i][j] == CheckCounter) {
 						++DoubleCounter;
 					}
-					if DoubleCounter > 1{
+					if (DoubleCounter > 1) {
 					cout << "This is not a proper Sudoku puzzle!" << endl;
+					return false;
 					}
 				}
 			}
 			++CheckCounter;
 		}
-		RowIndex = 0;
-		ColumnIndex = 0;
+
+		//this is to check column validity
+		i = 0;
+		j = 0;
 		CheckCounter = 0;
 		DoubleCounter = 0;
-		while CheckCounter < 9{
-			for (; ColumnIndex < ArraySize; ++ColumnIndex){
+		while (CheckCounter < 9) {
+			for (; j < ArraySize; ++j){
 			DoubleCounter = 0;
-				for (; RowIndex < ArraySize; ++RowIndex){
-					if PuzzleArray[RowIndex][ColumnIndex] == CheckCounter
+				for (; i < ArraySize; ++i){
+					if (PuzzleArray[i][j] == CheckCounter) {
 						++DoubleCounter;
-					if DoubleCounter > 1{
+					}
+					if (DoubleCounter > 1) {
 					cout << "This is not a proper Sudoku puzzle!" << endl;
+					return false;
 					}
 				}
 			}
 			++CheckCounter;
 		}
 		
-		RowIndex = 0;
-		ColumnIndex = 0;
-		int SquareRowIndex = 0;
-		int SquareColumnIndex = 0;
+		//this is to check box validity
+		i = 0;
+		j = 0;
+		int Squarei = 0;
+		int Squarej = 0;
 		CheckCounter = 0;
 		DoubleCounter = 0;
+		//squareCounter is the index of the square within the 3x3 puzzle
 		SquareCounter = 0;
-		while SquareCounter < 9{
-			for (;SquareRowIndex < (ArraySize / 3); ++SquareRowIndex){
-				for (;SquareColumnIndex < (ArraySize /3); ++SquareColumnIndex){
-					while CheckCounter < 9{
-					DoubleCounter = 0;
-						for (; RowIndex < (ArraySize / 3); ++RowIndex){
-							for (; ColumnIndex < (ArraySize / 3); ++ColumnIndex){
-								if PuzzleArray[RowIndex + (3 * (SquareRowIndex + 1))][ColumnIndex + (3 * (SquareColumnIndex =1))] == CheckCounter{
+		while (SquareCounter < 9) {
+			for (;Squarei < (ArraySize / 3); ++Squarei) {
+				//reset Squarej when moving to the next row of Squares
+				Squarej = 0;
+				for (;Squarej < (ArraySize /3); ++Squarej) {
+					//reset CheckCounter when moving to another Square
+					CheckCounter = 0;
+
+					//similar to Checking for row/column validity, only within each Square
+					while (CheckCounter < 9) {
+						DoubleCounter = 0;
+						for (; i < (ArraySize / 3); ++i){
+							for (; j < (ArraySize / 3); ++j){
+								if (PuzzleArray[i + (3 * Squarei)][j + (3 * Squarej)] == CheckCounter) {
 								++DoubleCounter;
 								}	
 								if DoubleCounter > 1{
 								cout << "This is not a proper Sudoku puzzle!" << endl;
+								return false;
 								}
 							}	
 						}
@@ -84,6 +106,7 @@ class Puzzle{
 		}
 		
 		cout<< "The entered Sudoku board is proper." << endl;
+		return true;
 	}				
 	
 	void SolvePuzzle(){
