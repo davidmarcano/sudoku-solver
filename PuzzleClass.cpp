@@ -5,11 +5,12 @@ using namespace std;
 class Puzzle{
 	private:
 	int PuzzleArray[9][9] = {0};
-	
-	public:
 	int RowIndex = 0;
 	int ColumnIndex = 0;
 	
+	
+	public:
+
 	{
 		void StoreRow(int InputArray[]){
 			int ArraySize = sizeof(InputArray) / sizeof(InputArray[0];
@@ -87,6 +88,7 @@ class Puzzle{
 		}				
 		
 		void SolvePuzzle(){
+
 			
 		}
 			
