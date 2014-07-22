@@ -2,13 +2,13 @@
 #include <string>
 #include <stdio.h>
 #include <fstream>
-#include "PuzzleClass.h"
-#include "Parser.h"
+#include "PuzzleClass.hpp"
+#include "Parser.hpp"
 
 using namespace std;
 
 int main(int argc, char * argv[]) {
-	Parser * parser;
+	Parser * parser = new Parser();
 	PuzzleClass * puzzle = new PuzzleClass();
 
 	puzzle->PuzzleClass::SolvePuzzle();

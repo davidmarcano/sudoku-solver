@@ -2,7 +2,7 @@
 #include <string>
 #include <stdio.h>
 #include <fstream>
-#include "Parser.h"
+#include "Parser.hpp"
 
 
 void Parser::ParseInput(FILE * file) {
@@ -15,15 +15,19 @@ void Parser::ParseInput(FILE * file) {
 
 std::string Parser::getLine(FILE * file) {
 	char c;
+	int i = 0;
 	char * cline;
 	std::string line = "";
-	while ((c = getc(file)) != EOF || (c != '\n')) {
+
+
+	while (((c = getc(file)) != EOF) && (c != '\n')) {
 		(*cline) = c;
 		cline++;
+		i++;
 	}
 	
 	(*cline) = '\0';
-	return line.append(cline);
+	return line.append(cline - i);
 }
 	
 

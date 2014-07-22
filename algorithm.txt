@@ -1,0 +1,48 @@
+Algorithm:
+Input: Assumption that the puzzle is valid through PuzzleClass::CheckForValidity().
+Output: Solve the puzzle
+
+- Keep track of what can be put into each square. Make a class that handles this functionality. So an array of these
+	objects would represents all possibilities in all squares of the puzzle.
+- Each of these objects is built by checking the validity of all numbers in that square given the current puzzle.
+- Build a 9x9 array of these objects and find the one that has the least possibilities. Give the possibilities, we c hoose the first one available.
+- recursively call this function with n-1 open squares (n being # of original open squares).
+- A puzzle is unsolvable iff the FIRST square runs through it's possibilities without solving the puzzle.
+
+- on the second iteration, start from line 8.
+
+Keep an array of objects we've changed?
+
+Perhaps make the puzzle board an array of PossibiltySquare objects, which contains 4 things:
+	1) The number it holds
+	2) an possibleNumbers array
+	3) an array of all changes, including non-changes (update array)
+	4) a counter of possible numbers
+
+We have an update function which when we "place" a number in a square, it runs through rows/columns/squares and erases
+	that possibilty if present within that object, and subtracts one from possibilityCounter if present a possibility was removed. Then the update array notes all changes to each object.
+When we "move back" one step, we use the same "update" function with an "add" flag, and refer to the update array to relocate any changed numbers back to the possibleNumbers.
+
+PuzzleClass Solver and Validity Check
+NumbersSeenArray[9] = {0}
+This array keeps track of numbers (1-9) that we have seen in row/column/box by adding 1 to the number's index.
+Ex) If 5 appears, we do NumbersSeenArray[5-1]++.
+
+For Validity check, if at any time, NumbersSeenArray[i] > 1, the puzzle is not valid, and we exit.
+
+For Solver, after building this NumbersSeenArray, we use it to update possibleNumbers for each object in the corresponding row/column/box. How is it updated? A 1 represents a number that is no longer possible.
+Ex)
+ A blank square object's possibleNumbers : [1,2,3,4,5,6,7,8,9]
+ If, NumbersSeenArray is: [0,0,1,1,0,1,0,0,0]
+ Then, possibleNumbers will become: [1,2,0,0,5,0,7,8,9]
+
+
+ How to find the PossibilitySquare with the least number of possible numbers?
+ PossibilitySquare * minimumSquare; This pointer stores the address of the box with the lowest "counter of possible numbers" seen so far.
+	
+
+
+
+Todo tomorrow:
+Re-configure PuzzleClass to reuse the row/column/square testing.
+Window: possible problem: switch makefile .hpp/.cpp order
