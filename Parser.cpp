@@ -6,18 +6,28 @@
 
 
 void Parser::ParseInput(FILE * file) {
-	std::string line = Parser::getLine(file);
-	std::cout << line << std::endl;
+	std::string * line = new std::string;
+
+	bool endFlag;
+
+	while (!(endFlag = Parser::getLine(file, line))) {
+		std::cout << *line << std::endl;
+		line->clear();
+	} 
+	
+	//print the last line
+	std::cout << (*line) << std::endl;
 	//Check for validity via a helper function
 	//Change the string values to integer values
 	//Put values into array
 }
 
-std::string Parser::getLine(FILE * file) {
+//returns true for EOF, false otherwise
+bool Parser::getLine(FILE * file, std::string *line) {
 	char c;
 	int i = 0;
-	char * cline;
-	std::string line = "";
+	bool endFlag = false;
+	char * cline = new char;
 
 
 	while (((c = getc(file)) != EOF) && (c != '\n')) {
@@ -25,9 +35,13 @@ std::string Parser::getLine(FILE * file) {
 		cline++;
 		i++;
 	}
+	if (c == EOF) {
+		endFlag = true;
+	}
 	
 	(*cline) = '\0';
-	return line.append(cline - i);
+	line->append(cline - i);
+	return endFlag;
 }
 	
 

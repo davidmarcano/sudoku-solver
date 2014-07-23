@@ -13,7 +13,7 @@ class Parser{
 	public:
 		void ParseInput(FILE *);
 
-		std::string getLine(FILE *);
+		bool getLine(FILE *, std::string *);
 
 		bool checkValidity();
 
