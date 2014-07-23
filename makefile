@@ -1,14 +1,16 @@
-CXX = g++
+CPP = g++
 FLAGS = -Wall -g -std=c++11
 
-main: Parser.o PuzzleClass.o main.o
-	$(CXX) $(FLAGS) -o main Parser.o PuzzleClass.o main.o
-main.o: main.cpp Parser.hpp PuzzleClass.hpp
-	$(CXX) $(FLAGS) -c main.cpp
-Parser.o: Parser.cpp Parser.hpp
-	$(CXX) $(FLAGS) -c Parser.cpp
-PuzzleClass.o: PuzzleClass.hpp PuzzleClass.cpp
-	$(CXX) $(FLAGS) -c PuzzleClass.cpp
+all: main.exe
+
+main.exe: Parser.obj PuzzleClass.obj main.obj
+	$(CPP) $(FLAGS) -o main.exe Parser.obj PuzzleClass.obj main.obj
+main.obj: main.cpp Parser.hpp PuzzleClass.hpp
+	$(CPP) $(FLAGS) -o main.obj -c main.cpp
+Parser.obj: Parser.cpp Parser.hpp
+	$(CPP) $(FLAGS) -o Parser.obj -c Parser.cpp
+PuzzleClass.obj: PuzzleClass.hpp PuzzleClass.cpp
+	$(CPP) $(FLAGS) -o PuzzleClass.obj -c PuzzleClass.cpp
 
 clean:
-	rm main *.o
+	rm -rf main.exe \*.obj

@@ -3,17 +3,23 @@
 
 #include <iostream>
 #include <string>
+#include <sstream>
 #include <stdio.h>
 #include <fstream>
+#include "PuzzleClass.hpp"
 
 class Parser{
 	private:
 	int Array[9] = {0};
 	
 	public:
-		void ParseInput(FILE *);
+		void ParseInput(std::ifstream *, PuzzleClass *);
 
-		bool getLine(FILE *, std::string *);
+		void insertIntoSquare(int, PuzzleClass *, int);
+
+		int convert(int, std::string);
+
+		bool getLine(std::ifstream *, char *);
 
 		bool checkValidity();
 

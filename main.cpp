@@ -5,7 +5,9 @@
 #include "PuzzleClass.hpp"
 #include "Parser.hpp"
 
+using std::ifstream;
 using namespace std;
+
 
 int main(int argc, char * argv[]) {
 	Parser * parser = new Parser();
@@ -13,13 +15,13 @@ int main(int argc, char * argv[]) {
 
 	puzzle->PuzzleClass::SolvePuzzle();
 
-	FILE * pfile;
-	pfile = fopen("test1.txt", "r");
-	if (pfile == NULL) {
+	ifstream * pfile = new ifstream;
+	pfile->open("test1.txt");
+	if (!pfile->good()) {
 		cout << "Error opening File" << endl;
 		//return 1;
 	}
 	parser->Parser::ParseInput(pfile);
-	fclose(pfile);
+	pfile->close();
 	return 0;
 }
