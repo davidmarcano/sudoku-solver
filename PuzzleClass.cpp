@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "PuzzleClass.h"
+#include "PuzzleClass.hpp"
 
 
 
