@@ -8,7 +8,7 @@
 
 class PuzzleClass{
 	private:
-	int PuzzleArray[9][9] = {{0}};
+	PuzzleSquareClass PuzzleArray[9][9] = {{}};
 	int i = 0, j = 0;
 	
 	public:	
