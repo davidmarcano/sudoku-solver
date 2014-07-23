@@ -17,15 +17,17 @@ void Parser::ParseInput(std::ifstream * file, PuzzleClass * puzzle) {
 	//bool endFlag;
 	std::string buffer;
 
-	int j = 0;
+	int i = 0;
 	int result;
 	while (!(file->eof())) {
 		getline((*file), buffer);
 		std::cout << buffer << std::endl;
 		//convert from string to int.
-		convert(result, buffer); //must figure out a way to store each digit in int*
-		puzzle->insertIntoSquare(result, puzzle->GetPuzzle()[j]);
-		j++;
+		for (unsigned j = 0; j < buffer.length(); j++) {
+			convert(result, buffer);
+			insertIntoSquare(result, puzzle->GetPuzzle()[j], i);
+		}
+		i++;
 	}
 	/*while (!(endFlag = Parser::getLine(file, line))) {
 		begin = line;
@@ -39,7 +41,14 @@ void Parser::ParseInput(std::ifstream * file, PuzzleClass * puzzle) {
 	//Put values into array
 }
 
+void insertIntoSquare(int value, PossibilitiesSquare * puzzle, int rowIndex) {
+	int ArraySize = sizeof(puzzle) / sizeof(puzzle[0]);
+	for (int i = 0; i < ArraySize; i++ ) {
+			puzzle[i].SetValue(value);
 
+	}
+
+}
 
 int Parser::convert(int result, std::string buffer) {
 	std::stringstream convertion (buffer);

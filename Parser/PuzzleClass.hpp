@@ -13,18 +13,13 @@ class PuzzleClass{
 	int i = 0, j = 0;
 	
 	public:	
-		void insertIntoSquare(int * , PossibilitiesSquare *);
-		//void StoreRow(int[]);
-
-		bool PuzzleClass::CheckerAndInitializer(int & NumbersSeenArray[], int, PuzzleClass, int, int)
+		void StoreRow(int[]);
 
 		bool CheckPuzzle();
 
 		void SolvePuzzle();
 
 		PossibilitiesSquare ** GetPuzzle();
-
-		void PuzzleClass::MinimumSquare(PossibilitiesSquare InputSquare)
 };
 
 #endif

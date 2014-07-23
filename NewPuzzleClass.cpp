@@ -2,7 +2,7 @@
 #include <string>
 #include <typeinfo>
 #include "PuzzleClass.hpp"
-#include "PuzzleSquareClass.cpp"
+#include "PossibilitiesSquare.hpp"
 
 
 
