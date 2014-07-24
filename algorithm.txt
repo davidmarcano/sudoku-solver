@@ -15,7 +15,7 @@ Keep an array of objects we've changed?
 
 Perhaps make the puzzle board an array of PossibiltySquare objects, which contains 4 things:
 	1) The number it holds
-	2) an possibleNumbers array
+	2) a possibleNumbers array
 	3) an array of all changes, including non-changes (update array)
 	4) a counter of possible numbers
 
@@ -43,6 +43,12 @@ Ex)
 
 
 
-Todo tomorrow:
-Re-configure PuzzleClass to reuse the row/column/square testing.
-Window: possible problem: switch makefile .hpp/.cpp order
+Todo today:
+
+Debugg what we have.
+change historyArray to externalhistoryArray
+impliment a historycounter reset when a square is poped off the externalhistoryArray
+Finish parcer: add counter functionality for externalhistoryArray.
+Create an internalhistoryArray for PossibilitiesSquare. Impliment into existing code.
+Overload SetPossibilities so we can update WITHOUT NumbersSeenArray.
+
