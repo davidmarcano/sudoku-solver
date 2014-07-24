@@ -9,27 +9,29 @@ class PossibilitiesSquare {
 	private:
 		int value = 0;
 		int possibleNumbers[9] = {1,2,3,4,5,6,7,8,9};
-		int	numberpossible;
-		int * historyArray;
+		int	numberpossible = 9;
+		int * internalhistoryArray;
+		int internalupdateValue;
 		int historyCounter = 0;
-	public:
-		void PossibilityUpdater(int *, int);
 
+	public:
 		int GetValue();
 
-		void SetPossibilities(int InputArray[], int k = 0);
-
-		void SetnumberPossible();
-
-		int GetnumberPossible();
+		void SetValue(int);
 
 		int EnterValue();
 
-		void UpdateArray();
+		void PossibilityUpdater(int *, int);
 
-		void ReverseUpdateArray();
+		void SetPossibilities(int InputArray[], int k = 0);
 
-		void SetValue(int);
+		int GetnumberPossible();
+
+		void SetnumberPossible();
+
+		void UpdateInternalArray(int, PossibilitiesSquare *) //Is there a problem here?
+
+		
 
 };
 #endif //_POSSIBILITIESSQUARE_H

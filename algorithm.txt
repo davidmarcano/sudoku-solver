@@ -43,12 +43,24 @@ Ex)
 
 
 
-Todo today:
+Todo today July 24,2014
 
-Debugg what we have.
-change historyArray to externalhistoryArray
-impliment a historycounter reset when a square is poped off the externalhistoryArray
-Finish parcer: add counter functionality for externalhistoryArray.
-Create an internalhistoryArray for PossibilitiesSquare. Impliment into existing code.
-Overload SetPossibilities so we can update WITHOUT NumbersSeenArray.
+Debugg what we have.-- mostly done
+change historyArray to externalhistoryArray -- done
+impliment a historycounter reset when a square is poped off the externalhistoryArray -- done
+Finish parcer: add counter functionality for externalhistoryArray. -- done
+Create an internalhistoryArray for PossibilitiesSquare. Impliment into existing code. -- implimented but still needs review
+Overload SetPossibilities so we can update WITHOUT NumbersSeenArray. -- still in progress: see Major Changes below
 
+Major Changes going forward:
+We are implimenting a new function in PuzzleClass to loop through squares affected after evoking the EnterValue function.
+	This new function will send each square to an overloaded SetPossibilities function to update each square's possibleNumbers array.
+
+
+Major Unfinished sections:
+We need to figure out how to create a double array of pointers and impliment it.
+Updating each squares possibleNumbers after evoking the Entervalue function.
+Using the CheckerAndInitializer function to check and initialize the boxes.
+
+
+Where to pick up next time: Look at the last few functions on PossibilitiesSquare.cpp. Then create the new function mentioned above.
