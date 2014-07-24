@@ -6,6 +6,7 @@
 #include <sstream>
 #include <vector>
 #include <string>
+#include <cstring>
 #include "Parser.hpp"
 
 
@@ -16,16 +17,25 @@ void Parser::ParseInput(std::ifstream * file, PuzzleClass * puzzle) {
 
 	//bool endFlag;
 	std::string buffer;
-
+	char * realBuffer;
 	int j = 0;
-	int result;
+	int i = 0;
+	int * result;
 	while (!(file->eof())) {
 		getline((*file), buffer);
 		std::cout << buffer << std::endl;
-		//convert from string to int.
-		convert(result, buffer); //must figure out a way to store each digit in int*
-		puzzle->insertIntoSquare(result, puzzle->GetPuzzle()[j]);
-		j++;
+		std::strcpy(realBuffer, buffer.c_str());
+
+		while ((*realBuffer) != '\0') {
+			//convert from string to int.
+			convert(result[j], (*realBuffer)); //must figure out a way to store each digit in int*
+			//Have to change result to int*
+			//puzzle->insertIntoRowOfSquares(result, puzzle->GetPuzzle()[j]);
+			realBuffer++;
+			j++;
+		}
+		puzzle->insertIntoRowOfSquares(result, (puzzle->GetPuzzle())[i]);
+		i++;
 	}
 	/*while (!(endFlag = Parser::getLine(file, line))) {
 		begin = line;
@@ -41,13 +51,18 @@ void Parser::ParseInput(std::ifstream * file, PuzzleClass * puzzle) {
 
 
 
-int Parser::convert(int result, std::string buffer) {
-	std::stringstream convertion (buffer);
+int Parser::convert(int & result, char singleChar) {
+	
+	result = singleChar - 48;
 
-	if (!(convertion >> result)) {
-		result = 0;
+	if ((0 < result) && (result < 9)) {
+		return result;
 	}
-	return result;
+	else {
+		std::cout << "invalid input" << std::endl;
+		result = 0;
+		return result;
+	}
 
 }
 //returns true for EOF, false otherwise

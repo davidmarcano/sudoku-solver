@@ -21,7 +21,7 @@ int main(int argc, char * argv[]) {
 		cout << "Error opening File" << endl;
 		//return 1;
 	}
-	parser->Parser::ParseInput(pfile);
+	parser->ParseInput(pfile, puzzle);
 	pfile->close();
 	return 0;
 }
