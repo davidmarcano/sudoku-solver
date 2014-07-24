@@ -7,10 +7,12 @@
 
 
 
-void PuzzleClass::insertIntoSquare(int * value, PossibilitiesSquare * puzzle) {
-	int ArraySize = sizeof(puzzle) / sizeof(puzzle[0]);
+//this function passes a row of PossibilitiesSquares to SetValue
+//value is the array of integers to insert into the row of PossibilitiesSquare
+void PuzzleClass::insertIntoRowOfSquares(int * value, PossibilitiesSquare * puzzleRow) {
+	int ArraySize = sizeof(puzzleRow) / sizeof(puzzleRow[0]);
 	for (int i = 0; i < ArraySize; i++ ) {
-			puzzle[i].SetValue(value[i]);
+			puzzleRow[i].SetValue(value[i]);
 
 	}
 
@@ -29,13 +31,13 @@ void PuzzleClass::StoreRow(int InputArray[]) {
 	}
 */
 
-bool PuzzleClass::CheckerAndInitializer(int & NumbersSeenArray[], int ArraySize, PuzzleClass PuzzleArray, int i, int j) {
+bool PuzzleClass::CheckerAndInitializer(int * NumbersSeenArray, int ArraySize, int i, int j) {
 	for (; i < ArraySize; ++i){
 		//resets DoubleCounter when moving from row to row
 		for (; j < ArraySize; ++j){
 			//builds NumbersSeenArray for a row and checks for validity
 			if ((this->PuzzleArray[i][j].GetValue() > 0)) {
-				int PuzzleNumber = PuzzleArray[i][j].GetValue();
+				int PuzzleNumber = this->PuzzleArray[i][j].GetValue();
 				++NumbersSeenArray[PuzzleNumber - 1];
 				if (NumbersSeenArray[PuzzleNumber - 1] > 1){
 					std::cout << "This is not a proper Sudoku puzzle!" << std::endl;
@@ -46,7 +48,7 @@ bool PuzzleClass::CheckerAndInitializer(int & NumbersSeenArray[], int ArraySize,
 		}
 		//go through the Square objects and update them based on NumbersSeenArray
 		for (int k = 0; k < ArraySize; k++){
-			PuzzleArray[i][k].PossibilityUpdater(NumbersSeenArray);
+			PuzzleArray[i][k].PossibilityUpdater(NumbersSeenArray, ArraySize);
 		}
 		
 
@@ -54,18 +56,14 @@ bool PuzzleClass::CheckerAndInitializer(int & NumbersSeenArray[], int ArraySize,
 	return true;
 }
 
-void clearArray(int array[]&) {
+void clearArray(int * array) {
 	int ArraySize = sizeof(array) / sizeof(array[0]);
 	for (int i = 0; i < ArraySize; i++) {
 		array[i] = 0;
 	}
 }
-//This function uses NumbersSeenArray to update the available possibilities of each object in a row/column/box
-void PuzzleClass::PossibilityUpdater(int * NumbersSeenArray) {
-	for (int k = 0; k < ArraySize; ++k) {
-		PuzzleArray[i][k].PossibilitiesSquare::SetPossibilities(NumbersSeenArray, k);
-	}	
-}
+
+
 
 //returns true if the puzzle is proper, false otherwise.
 bool PuzzleClass::CheckPuzzle() {	
@@ -78,12 +76,12 @@ bool PuzzleClass::CheckPuzzle() {
 	//while (CheckCounter < 9) {
 	int NumbersSeenArray[9] = {0};
 
-	PuzzleClass::Checker(NumbersSeenArray, ArraySize, this->PuzzleArray, this->i, this->j);
+	this->CheckerAndInitializer(NumbersSeenArray, ArraySize, this->i, this->j);
 	clearArray(NumbersSeenArray);
 
 	this->i = 0;
 	this->j = 0;
-	PuzzleClass::Checker(NumbersSeenArray, ArraySize, this->PuzzleArray, this->j, this->i);
+	this->CheckerAndInitializer(NumbersSeenArray, ArraySize, this->j, this->i);
 	
 	/*CheckCounter = 0;
 	DoubleCounter = 0;
@@ -104,6 +102,8 @@ bool PuzzleClass::CheckPuzzle() {
 	}*/
 	
 	//this is to check box validity
+	
+/*---------------------------------------------------------------------------
 	this->i = 0;
 	this->j = 0;
 	int Squarei = 0;
@@ -118,14 +118,14 @@ bool PuzzleClass::CheckPuzzle() {
 				Squarej = 0;
 			for (;Squarej < (ArraySize /3); ++Squarej) {
 				//reset CheckCounter when moving to another Square
-				CheckCounter = 0;
+				//CheckCounter = 0;
 					//similar to Checking for row/column validity, only within each Square
 				while (CheckCounter < 9) {
-					DoubleCounter = 0;
+					//DoubleCounter = 0;
 					for (; i < (ArraySize / 3); ++i){
 						for (; j < (ArraySize / 3); ++j){
 							if (PuzzleArray[i + (3 * Squarei)][j + (3 * Squarej)] == CheckCounter) {
-							++DoubleCounter;
+							//++DoubleCounter;
 							}	
 							if (DoubleCounter > 1) {
 							std::cout << "This is not a proper Sudoku puzzle!" << std::endl;
@@ -141,7 +141,9 @@ bool PuzzleClass::CheckPuzzle() {
 	}
 	
 	std::cout<< "The entered Sudoku board is proper." << std::endl;
+	--------------------------------------------------------------------------------*/
 	return true;
+
 }				
 
 void PuzzleClass::SolvePuzzle(){
@@ -151,17 +153,17 @@ void PuzzleClass::SolvePuzzle(){
 
 }
 
-PuzzleClass ** GetPuzzle() {
+PossibilitiesSquare ** PuzzleClass::GetPuzzle() {
 	return this->PuzzleArray;
 }
 //Inputs: Takes a square and compares its number of possible values to a minimum value. If it is the minimum, we keep track of it via a pointer.
-void PuzzleClass::MinimumSquare(PossibilitiesSquare InputSquare, int minimum, PossibilitiesSquare * minimumSquare){
+void PuzzleClass::MinimumSquare(PossibilitiesSquare * InputSquare, int minimum, PossibilitiesSquare * minimumSquare){
 	//int minimum = 9 This will go to our main function
 	//This needs to be placed outside the function before the function is called
 	//PossibilitiesSquare * minimumSquare = new PossibilitiesSquare();
 	//minimumSquare = &InputSquare;
-	if (InputSquare.GetnumberPossible < minimum){
-		minimum = InputSquare.GetnumberPossible;
+	if (InputSquare->GetnumberPossible() < minimum){
+		minimum = InputSquare->GetnumberPossible();
 		
 	}
 }

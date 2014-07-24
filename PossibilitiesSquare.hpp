@@ -7,12 +7,14 @@
 
 class PossibilitiesSquare {
 	private:
-		int value;
+		int value = 0;
 		int possibleNumbers[9] = {1,2,3,4,5,6,7,8,9};
 		int	numberpossible;
 		int * historyArray;
 		int historyCounter = 0;
 	public:
+		void PossibilityUpdater(int *, int);
+
 		int GetValue();
 
 		void SetPossibilities(int InputArray[], int k = 0);
@@ -30,4 +32,4 @@ class PossibilitiesSquare {
 		void SetValue(int);
 
 };
-#endif
+#endif //_POSSIBILITIESSQUARE_H

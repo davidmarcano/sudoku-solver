@@ -15,9 +15,7 @@ class Parser{
 	public:
 		void ParseInput(std::ifstream *, PuzzleClass *);
 
-		void insertIntoSquare(int, PossibilitiesSquare*, int);
-
-		int convert(int, std::string);
+		int convert(int &, char);
 
 		bool getLine(std::ifstream *, char *);
 
@@ -25,4 +23,4 @@ class Parser{
 
 };
 
-#endif
+#endif //_PARSER_H

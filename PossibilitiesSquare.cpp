@@ -3,7 +3,18 @@
 #include "PossibilitiesSquare.hpp"
 #include "PuzzleClass.hpp"
 
+
+//This function uses NumbersSeenArray to update the available possibilities of each object in a row/column/box
+//this function goes through EACH square
+void PossibilitiesSquare::PossibilityUpdater(int * NumbersSeenArray, int ArraySize) {
+	for (int k = 0; k < ArraySize; ++k) {
+		PuzzleArray[i][k].PossibilitiesSquare::SetPossibilities(NumbersSeenArray, k);
+	}	
+}
+
+
 //inputs NumbersSeenArray per row/column and updates the corresponding boxes
+//This function goes through the NumbersSeenArray for ONE box
 void PossibilitiesSquare::SetPossibilities(int InputArray[]){ 
 	int ArraySize = sizeof(InputArray) / sizeof(InputArray[0]);
 	for (int i = 0; i < ArraySize; i++) {

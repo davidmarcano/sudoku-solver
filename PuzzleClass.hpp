@@ -9,14 +9,14 @@
 
 class PuzzleClass{
 	private:
-	PossibilitiesSquare PuzzleArray[9][9] = {{}};
+	PossibilitiesSquare ** PuzzleArray = new PossibilitiesSquare*[9]; //we need to initialize this
 	int i = 0, j = 0;
 	
 	public:	
-		void insertIntoSquare(int * , PossibilitiesSquare *);
+		void insertIntoRowOfSquares(int * , PossibilitiesSquare *);
 		//void StoreRow(int[]);
 
-		bool PuzzleClass::CheckerAndInitializer(int & NumbersSeenArray[], int, PuzzleClass, int, int)
+		bool CheckerAndInitializer(int * , int, int, int);
 
 		bool CheckPuzzle();
 
@@ -24,7 +24,7 @@ class PuzzleClass{
 
 		PossibilitiesSquare ** GetPuzzle();
 
-		void PuzzleClass::MinimumSquare(PossibilitiesSquare InputSquare)
+		void MinimumSquare(PossibilitiesSquare *, int, PossibilitiesSquare *);
 };
 
-#endif
+#endif //_PUZZLECLASS_H
