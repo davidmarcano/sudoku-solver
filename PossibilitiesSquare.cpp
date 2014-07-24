@@ -46,9 +46,8 @@ int PossibilitiesSquare::EnterValue(){
 			if (this->value > 0){
 				++(this->historyCounter);
 			return this->value;
-			 //I want this to stop after I return this value. is this the best way to do that.
 			}		
-		}//we need to reset historycounter when a Square is "poped" of the ExternalHistoryArray
+		}//we need to reset historycounter when a Square is "poped" of the externalhistoryArray
 		++historyCounter;
 	}
 	//This function sends the above square to the ReverseUpdateArray if there are no more available values.
@@ -65,22 +64,29 @@ void PossibilitiesSquare::SetValue(int val) {
 // of history ONLY related to it's rows/columns/boxes.
 
 void PossibilitiesSquare::UpdateExternalArray(PossibilitiesSquare * add){
-	if (historyArray == startingpoint){
-		++historyArray;}
-	historyArray = add;
-	++historyArray;
+	if (externalhistoryArray == startingpoint){
+		++externalhistoryArray;}
+	externalhistoryArray = add;
+	++externalhistoryArray;
 	//
-	if ((sizeof(historyArray) / sizeof(historyArray[0])) == 82 - NUMBER OF INITIALIZED){
+	if ((sizeof(externalhistoryArray) / sizeof(externalhistoryArray[0])) == 82 - NUMBER OF INITIALIZED){
 		cout << "Puzzle is Solved!" << endl;
 	}
 }
 void PuzzleClass::ReverseUpdateExternalArray(){//We need to change header files for this Class change
-	--historyArray;
-	if (historyArray == startingpoint);
+	--externalhistoryArray;
+	if (externalhistoryArray == startingpoint);
 	cout << "Unsolvable Puzzle!" << endl;
 	//Create a new pointer to refer to the beginning.
 	//sends the object located here to the EnterValue Function to 
-	historyArray->EnterValue();
+	externalhistoryArray->EnterValue();
 
 }
-//We need to change historyArray to externalhistoryArray.
+
+void PuzzleClass::UpdateInternalArray(){
+	
+}
+
+void PuzzleClass::ReverseUpdateInternalArray(){
+	
+}

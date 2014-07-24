@@ -58,7 +58,7 @@ void clearArray(int array[]&) {
 	int ArraySize = sizeof(array) / sizeof(array[0]);
 	for (int i = 0; i < ArraySize; i++) {
 		array[i] = 0;
-	}
+	}   
 }
 //This function uses NumbersSeenArray to update the available possibilities of each object in a row/column/box
 void PuzzleClass::PossibilityUpdater(int * NumbersSeenArray) {
