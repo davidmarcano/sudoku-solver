@@ -8,6 +8,8 @@
 class PossibilitiesSquare {
 	private:
 		int value = 0;
+		int locationi = 0;
+		int locationj = 0;
 		int possibleNumbers[9] = {1,2,3,4,5,6,7,8,9};
 		int	numberpossible = 9;
 		int * internalhistoryArray;

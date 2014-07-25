@@ -58,9 +58,28 @@ We are implimenting a new function in PuzzleClass to loop through squares affect
 
 
 Major Unfinished sections:
-We need to figure out how to create a double array of pointers and impliment it.
-Updating each squares possibleNumbers after evoking the Entervalue function.
+We need to figure out how to create a double array of pointers and impliment it.-done
+Updating each square's possibleNumbers after evoking the Entervalue function.- done except for the box
 Using the CheckerAndInitializer function to check and initialize the boxes.
 
 
 Where to pick up next time: Look at the last few functions on PossibilitiesSquare.cpp. Then create the new function mentioned above.
+
+
+Todo today July 25, 2014
+
+Initialize PuzzleArray -- done, awaiting verification
+Impliment new function mentioned above --done, still need to figure out how to apply information from miminmumSquare for each affected box.
+overload SetPossibilities function - cancelled, created new function instead titled UpdatePossibilities
+	David: In the parcer class We need to add location variables for each Possibilities Square.
+
+Question: Questions regarding three functions: UpdateInternalArray1,2 and Update Possibilities. - should be done, check one more time.
+
+We need to reset the value of minimum back to 9 somewhere.
+we need to make Arraysize universally accepted into functions that need it.
+Figure out NumbersSeenArray, then go to 
+
+Major Unfinished Sections:
+CheckerAndInitializer needs to incorporate a box section.
+box section also needs to be incorporated to UpdateInternalArray (additinonal functionality to prevent the historyarray from counting twice.
+Creating a SetMinimumSquare for loop after initialization.

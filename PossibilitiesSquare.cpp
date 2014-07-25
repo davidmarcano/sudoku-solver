@@ -7,20 +7,30 @@
 
 //inputs NumbersSeenArray per row/column and updates the corresponding boxes
 //This function goes through the NumbersSeenArray for ONE box
-//overload SetPossibilities so we can update WITHOUT NumbersSeenArray?
-void PossibilitiesSquare::SetPossibilities(int * NumbersSeenArray, int ArraySize){ 
+void PossibilitiesSquare::SetPossibilities(int * NumbersSeenArray, const int ArraySize){ 
 	for (int i = 0; i < ArraySize; i++) {
 		if (NumbersSeenArray[i] == 1) {
 			this->possibleNumbers[i - 1] = 0;
 			--numberpossible;
+
 		}
 	}
 
 }
 
-int PossibilitiesSquare::GetnumberPossible(){
-	return this->numberpossible;
+void PossibilitiesSquare::UpdatePossibilities(int FLAG){
+	if (FLAG == 1){
+		this->possibleNumbers[internalhistoryArray -1] = 0;
+		--numberpossible;
+		++internalhistoryArray;
+	}
+	elseif (FLAG == -1){
+		--internalhistoryArray;
+		this->possibleNumbers[internalhistoryArray - 1] = internalhistoryArray;
+		--numberpossible;
+	}
 }
+
 
 int PossibilitiesSquare::GetValue() {
 	return this->value;
@@ -29,6 +39,21 @@ int PossibilitiesSquare::GetValue() {
 void PossibilitiesSquare::SetValue(int val) {
 	this->value = val;
 }
+
+int PossibilitiesSquare::Getlocationi(){
+	return this->locationi;
+}
+
+int PossibilitiesSquare::Getlocationj(){
+	return this->locationj;
+}
+//Not sure if this is needed
+int PossibilitiesSquare::Get
+
+int PossibilitiesSquare::GetnumberPossible(){
+	return this->numberpossible;
+}
+
 
 //This will eventually be the minimumSquare we need to start updating External/Internal Arrays. This is not the one we actually want
 PossibilitiesSquare* minimumSquare = new PossibilitiesSquare();
@@ -73,7 +98,8 @@ void PuzzleClass::UpdateExternalArray(int FLAG, PossibilitiesSquare * minimumSqu
 		//checks to see if the puzzle is solved. 82 instead of 81 because I added to externalhistoryArray twice in the beginning.
 		if ((sizeof(externalhistoryArray) / sizeof(externalhistoryArray[0])) == 82 - InitializationCounter){
 			cout << "Puzzle is Solved!" << endl;
-		minimumSquare->UpdateInternalArray(1);
+			//minimumSquare needs to be changed to Puzzle?
+		minimumSquare->UpdateInternalArray(minimumSquare, 1);
 		}
 	}
 	//originally ReverseUpdateExternalArray
@@ -83,37 +109,25 @@ void PuzzleClass::UpdateExternalArray(int FLAG, PossibilitiesSquare * minimumSqu
 		cout << "Unsolvable Puzzle!" << endl;
 		//Create a new pointer to refer to the beginning.
 		//sends the object located here to the EnterValue Function to 
-		minimumSquare->UpdateInternalArray(-1);
+		minimumSquare->UpdateInternalArray(minimumSquare, -1);
 		externalhistoryArray->EnterValue();
 	}
 }
-//Need another function to change those boxes affected by by the change.
-void PuzzleClass::
 //Takes value of the most recent change and uses that to update InternalArrays
-void PossibilitiesSquare::UpdateInternalArray(int FLAG){
-	if (FLAG ==1){
+//Many things are wrong with the following code. I leave it here in case we need some of its functionality.
+/*void PossibilitiesSquare::UpdateInternalArray(int FLAG, PossibilitiesSquare * minimumSquare){
+	if (FLAG == 1){
 		//gets the value of the minimumSquare
-		for (int j = 0; j < 9; ++j){//for loop goes here to update affected row/column/box (we need to change 9 also) this might need to be in update external array?
-			puzzle[locationofdata][j].UpdateValue() = minimumSquare.GetValue();
-			minimumSquare.PossibilityUpdater();// should we make a new function for this or code it inside?
+			this->PuzzleArray[i][j].UpdateValue() = minimumSquare.GetValue();
+			minimumSquare.PossibilityUpdater(1);// should we make a new function for this or code it inside?
 			++internalhistoryArray;
 		}
 	}
 	elseif (FLAG == -1){
 		//for loop goes here to reverse update affected row/column/box
 		--internalhistoryArray;
-		mimimumSquare.PossibilityUpdater();
+		mimimumSquare.PossibilityUpdater(-1);
 	}
 
 }
-//Takes last value of InternalArray and uses that to update possibilities. Overloaded from above.
-//This has problems. Should be in PuzzleClass. Will be done soon.
-void PossibilitiesSquare::PossibilityUpdater(int FLAG){
-	if (FLAG == 1){
-		this->possibleNumbers[internalhistoryArray -1] = 0;
-	}
-	elseif (FLAG == -1){
-		this->possibleNumbers[internalhistoryArray - 1] = internalhistoryArray;
-	}
-	//We also want to overload the NumberofPossibilities function to handle this PossibilityUpdater.
-}
+*/

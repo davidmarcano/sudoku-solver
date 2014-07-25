@@ -9,12 +9,18 @@
 
 class PuzzleClass{
 	private:
-	PossibilitiesSquare ** PuzzleArray = new PossibilitiesSquare*[9]; //we need to initialize this
-	int i = 0, j = 0;
-	PossibilitiesSquare * externalhistoryArray;
-	const PossibilitiesSquare * startingpoint = externalhistoryArray;
+		PossibilitiesSquare ** PuzzleArray = new PossibilitiesSquare*[9];
+		int minimum = 9
+		int i = 0, j = 0;
+		PossibilitiesSquare * externalhistoryArray;
+		PossibilitiesSquare * minimumSquare;
+		const PossibilitiesSquare * startingpoint = externalhistoryArray;
+
 	
 	public:	
+
+		void InitializePuzzleArray (PossibilitiesSquare ** PuzzleArray);
+
 		void insertIntoRowOfSquares(int * , PossibilitiesSquare *);
 		//void StoreRow(int[]);
 
