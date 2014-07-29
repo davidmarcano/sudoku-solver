@@ -23,17 +23,22 @@ class PossibilitiesSquare {
 
 		int EnterValue();
 
-		void PossibilityUpdater(int *, int);
+		int Getlocationi();
 
-		void SetPossibilities(int InputArray[], int k = 0);
+		int Getlocationj();
 
 		int GetnumberPossible();
 
-		void SetnumberPossible();
+		void SetPossibilities(int *, const int);
 
-		void UpdateInternalArray(int, PossibilitiesSquare *) //Is there a problem here?
+		void UpdatePossibilities(int);
+
+		//void PossibilityUpdater(int *, int);
+
+		//void UpdateInternalArray(int, PossibilitiesSquare *) //Is there a problem here?
 
 		
 
 };
+
 #endif //_POSSIBILITIESSQUARE_H

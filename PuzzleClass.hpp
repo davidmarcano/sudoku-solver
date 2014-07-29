@@ -10,8 +10,8 @@
 class PuzzleClass{
 	private:
 		PossibilitiesSquare ** PuzzleArray = new PossibilitiesSquare*[9];
-		int minimum = 9
 		int i = 0, j = 0;
+		int minimum = 0;
 		PossibilitiesSquare * externalhistoryArray;
 		PossibilitiesSquare * minimumSquare;
 		const PossibilitiesSquare * startingpoint = externalhistoryArray;
@@ -19,22 +19,28 @@ class PuzzleClass{
 	
 	public:	
 
-		void InitializePuzzleArray (PossibilitiesSquare ** PuzzleArray);
+		void InitializePuzzleArray (PossibilitiesSquare **);
 
 		void insertIntoRowOfSquares(int * , PossibilitiesSquare *);
 		//void StoreRow(int[]);
 
-		bool CheckerAndInitializer(int * , int, int, int);
+		void SolvePuzzle();
 
 		bool CheckPuzzle();
 
-		void SolvePuzzle();
+		bool CheckerAndInitializer(int * , int, int, int);
+
+		void SetPuzzleArray(int *, const int);
+
+		void clearArray(int *);
 
 		PossibilitiesSquare ** GetPuzzle();
 
-		void MinimumSquare(PossibilitiesSquare *, int, PossibilitiesSquare *);
+		void SetMinimumSquare();
 
-		void UpdateExternalArray(int, PossibilitiesSquare *);
+		void UpdateExternalArray(int);
+		
+		void UpdateInternalArray(int);
 };
 
 #endif //_PUZZLECLASS_H

@@ -3,20 +3,22 @@
 #include <typeinfo>
 #include "PuzzleClass.hpp"
 #include "PossibilitiesSquare.hpp"
+#include "Parcer.hpp"
 
 
-void PuzzleClass::SetPuzzleArray(PossibilitiesSquare ** PuzzleArray){
-	for (;this->i < 9; ++(this->i){
-		for (;this->j < 9; ++(this->j){
-				this->PuzzleArray[this->i][this->j] = 0;
-			}
+void PuzzleClass::InitializePuzzleArray(PossibilitiesSquare ** PuzzleArray){
+	for (;this->i < 9; ++(this->i)){
+		for (;this->j < 9; ++(this->j)){
+				this->PuzzleArray[this->i][this->j].SetValue(0);
 		}
 	}
 }
 
 void PuzzleClass::SolvePuzzle(){
 	PuzzleClass::CheckPuzzle();
-	//Something else needs to happen to continue the application.
+	for (int k = 0; k < 5; ++k)
+		PuzzleClass::SetMinimumSquare();
+		this->minimumSquare->EnterValue();
 }
 
 
@@ -122,40 +124,72 @@ bool PuzzleClass::CheckerAndInitializer(int * NumbersSeenArray, const int ArrayS
 		}
 		//goes through the row/column and updates each square's Possibilities via NumbersSeenArray
 		this->j = 0;
-		this->PuzzleArray->UpdatePuzzleArray(NumbersSeenArray, ArraySize);//check input
-		}
-		
-
+		SetPuzzleArray(NumbersSeenArray, ArraySize);
 	}
 	return true;
 }
-
-void PuzzleClass::UpdatePuzzleArray(int * NumbersSeenArray, const int ArraySize){
-		for (;this->j < ArraySize; ++(this->j){
-				this->PuzzleArray[this->i][this->j]->SetPossibilities(NumbersSeenArray, ArraySize);
+//goes through each row and column to update the possibleNumbers array for each square
+void PuzzleClass::SetPuzzleArray(int * NumbersSeenArray, const int ArraySize){
+		for (;this->j < ArraySize; ++(this->j)){
+				this->PuzzleArray[this->i][this->j].SetPossibilities(NumbersSeenArray, ArraySize);
 		}
 		this->j = 0;
 }
 
 //Inputs: Takes a square and compares its number of possible values to a minimum value. If it is the minimum, we keep track of it via a pointer.
 //This needs to be called by the function that intializes each square's numberpossible.
-void PuzzleClass::MinimumSquare(PossibilitiesSquare * InputSquare,){
-	//int minimum = 9 This will go to our main function
+//For now let's just use SetMinimumSquare
+/*void PuzzleClass::UpdateMinimumSquare(PossibilitiesSquare * InputSquare,){
+	//int minimum = 9 This will go to our main functions
 	//minimumSquare = &InputSquare;
 	if (InputSquare->GetnumberPossible() < minimum){
 		minimumSquare = InputSquare;
 		minimum = InputSquare->GetnumberPossible();
-		
 	}
-}
+}*/
 
 void PuzzleClass::SetMinimumSquare(){
 	for (int i = 0; i < 9; ++i){
 		for (int j = 0; j < 9; ++j){
-			
+			if ((this->PuzzleArray[i][j].GetValue == 0) && (this->PuzzleArray[i][j].numberpossible < minimum)){
+				minimum = this->PuzzleArray[i][j].GetnumberPossible;
+				this->minimumSquare = this->PuzzleArray[i][j];
+			}
 		}
 	}
+	minimum = 9;
 }
+
+void PuzzleClass::UpdateExternalArray(int FLAG){
+	//originally UpdateExternalArray
+	if (FLAG == 1){
+		if (this->externalhistoryArray == this->startingpoint){
+			++(this->externalhistoryArray);
+		}
+		this->externalhistoryArray = this->minimumSquare;
+		++(this->externalhistoryArray);
+		//checks to see if the puzzle is solved. 82 instead of 81 because I added to externalhistoryArray twice in the beginning.
+		if ((sizeof(this->externalhistoryArray) / sizeof(this->externalhistoryArray[0])) == 82 - initializationCounter){
+			std::cout << "Puzzle is Solved!" << std::endl;
+		}
+			//minimumSquare needs to be changed to Puzzle?
+		PuzzleClass::UpdateInternalArray(1);
+		//Update minimumSquare should probably be added here
+		
+	}
+	//originally ReverseUpdateExternalArray
+	else if (FLAG == -1){
+		--(this->externalhistoryArray);
+		if (this->externalhistoryArray == this->startingpoint);
+		cout << "Unsolvable Puzzle!" << endl;
+		//Create a new pointer to refer to the beginning.
+		//sends the object located here to the EnterValue Function to 
+		PuzzleClass::UpdateInternalArray(-1);
+		this->externalhistoryArray->EnterValue();
+	}
+}
+
+
 void PuzzleClass::UpdateInternalArray(int FLAG){
 	
 	if (FLAG == 1){
@@ -183,6 +217,7 @@ void PuzzleClass::UpdateInternalArray(int FLAG){
 		//We need another for loop here for the box.
 		}
 	}
+	//UpdateminimumSquare goes here now
 }
 
 
