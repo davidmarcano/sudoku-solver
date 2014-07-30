@@ -21,7 +21,7 @@ void Parser::ParseInput(std::ifstream * file, PuzzleClass * puzzle) {
 	char * realBuffer;
 	int j = 0;
 	int i = 0;
-	int * result;
+	int * result = new int;
 	while (!(file->eof())) {
 		getline((*file), buffer);
 		std::cout << buffer << std::endl;
@@ -66,7 +66,7 @@ int Parser::convert(int & result, char singleChar) {
 	
 	result = singleChar - 48;
 
-	if ((0 < result) && (result < 9)) {
+	if ((0 <= result) && (result < 9)) {
 		return result;
 	}
 	else {

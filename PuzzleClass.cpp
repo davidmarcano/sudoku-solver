@@ -2,10 +2,12 @@
 #include <string>
 #include <typeinfo>
 #include "PuzzleClass.hpp"
-#include "PossibilitiesSquare.hpp"
 
 
 void PuzzleClass::InitializePuzzleArray(){
+	for (;this->i < 9; ++(this->i)){
+		PuzzleArray[i] = new PossibilitiesSquare[9];
+	}
 	for (;this->i < 9; ++(this->i)){
 		for (;this->j < 9; ++(this->j)){
 				this->PuzzleArray[this->i][this->j].SetValue(0);
@@ -80,7 +82,6 @@ bool PuzzleClass::CheckerAndInitializer(int * NumbersSeenArray, const int ArrayS
 						int puzzleNumber = this->PuzzleArray[i + (3 * squarei)][j + (3 * squarej)].GetValue();
 						NumbersSeenArray[puzzleNumber - 1]++;
 						if (NumbersSeenArray[puzzleNumber - 1] > 1){
-							std::cout << "This is not a proper Sudoku puzzle!" << std::endl;
 							return false;
 						}
 					}	
@@ -131,7 +132,7 @@ void PuzzleClass::SetMinimumSquare(){
 		for (int j = 0; j < 9; ++j){
 			if ((this->PuzzleArray[i][j].GetValue() == 0) && (this->PuzzleArray[i][j].GetnumberPossible() < minimum)){
 				this->minimum = this->PuzzleArray[i][j].GetnumberPossible();
-				*(this->minimumSquare) = this->PuzzleArray[i][j];
+				this->minimumSquare = &(this->PuzzleArray[i][j]);
 			}
 		}
 	}
@@ -164,19 +165,18 @@ void PuzzleClass::UpdateInternalArray(int FLAG){
 		for (this->i = 0; this->i < 9; ++i){
 			this->PuzzleArray[this->i][this->j].UpdateinternalhistoryArray(this->externalhistoryArray->GetValue());
 			this->PuzzleArray[this->i][this->j].UpdatePossibilities(1);
-
+		}
 		this->squarei = (this->externalhistoryArray->Getlocationi() / 3);
 		this->squarej = (this->externalhistoryArray->Getlocationj() / 3);
 		for(int i = 0; i < 3; ++i){
 			for(int j = 0; j < 3; ++j){
 			this->PuzzleArray[i + (3 * squarei)][j + (3 * squarej)].UpdateinternalhistoryArray(this->externalhistoryArray->GetValue());
 			this->PuzzleArray[i + (3 * squarei)][j + (3 * squarej)].UpdatePossibilities(1);
-
 			}
 		}
-		}
 	}
-	if (FLAG == -1){
+
+	else if (FLAG == -1){
 		this->i = this->externalhistoryArray->Getlocationi();
 		for (this->j = 0; this->j < 9; ++(this->j)){
 			this->PuzzleArray[this->i][this->j].UpdatePossibilities(-1);

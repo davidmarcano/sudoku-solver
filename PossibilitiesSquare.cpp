@@ -9,6 +9,7 @@ int PossibilitiesSquare::GetValue() {
 }
 
 void PossibilitiesSquare::SetValue(int value) {
+	std::cout << "I set value!" << std::endl;
 	this->value = value;
 }
 
