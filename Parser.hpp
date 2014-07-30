@@ -12,7 +12,11 @@ class Parser{
 	private:
 	int Array[9] = {0};
 	int initializationCounter = 0;
+	
 	public:
+
+		int GetinitializationCounter();
+
 		void ParseInput(std::ifstream *, PuzzleClass *);
 
 		int convert(int &, char);

@@ -80,6 +80,19 @@ we need to make Arraysize universally accepted into functions that need it.
 Figure out NumbersSeenArray, then go to 
 
 Major Unfinished Sections:
-CheckerAndInitializer needs to incorporate a box section.
-box section also needs to be incorporated to UpdateInternalArray (additinonal functionality to prevent the historyarray from counting twice.
-Creating a SetMinimumSquare for loop after initialization.
+CheckerAndInitializer needs to incorporate a box section -- done
+box section also needs to be incorporated to UpdateInternalArray (additinonal functionality to prevent the historyarray from counting twice --done
+Creating a SetMinimumSquare for loop after initialization. -- scrapped
+
+
+7/30/14
+
+Goals:
+Complete Error testing -- done
+Add box functionality to SetPuzzleArray -- done
+Add box functionality to UpdateExternalArray/UpdateInternalArray -- done
+
+Changes: Added new Sovler class to help make things clear.
+
+Questions:
+for loops in CheckerAndInitializer: questions about int i = 0. There may be problems.

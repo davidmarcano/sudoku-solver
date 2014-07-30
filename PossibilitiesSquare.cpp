@@ -4,70 +4,12 @@
 #include "PuzzleClass.hpp"
 
 
-
-//inputs NumbersSeenArray per row/column and updates the corresponding boxes
-//This function goes through the NumbersSeenArray for ONE box
-void PossibilitiesSquare::SetPossibilities(int * NumbersSeenArray, const int ArraySize){ 
-	for (int i = 0; i < ArraySize; i++) {
-		if (NumbersSeenArray[i] == 1) {
-			this->possibleNumbers[i - 1] = 0;
-			--numberpossible;
-
-		}
-	}
-
-}
-
-//This function takes the square with the least available numbers as input, and enters the smallest one available as it's value.
-int PossibilitiesSquare::EnterValue(){
-	for (; this->historyCounter < 10; ++i){
-		//needed to reset the value to zero before reversing the update array.
-		if (this->historyCounter == 9){
-			this->value = 0;
-		}
-		else{
-			this->value = this->possibleNumbers[historyCounter];
-			//We need a function here that keeps track of what is lost
-			if (this->value > 0){
-				++(this->historyCounter);
-				PuzzleClass::UpdateExternalArray(1)
-			return this->value;
-			}		
-		}//we need to reset historycounter when a Square is "poped" of the externalhistoryArray
-		++(this->historyCounter);
-	}
-	//reset history counter so it can go through values again once it fails.
-	this->historyCounter = 0;
-	//This function sends the above square to the ReverseUpdateArray if there are no more available values.
-	PuzzleClass::UpdateExternalArray(-1);
-//	Once a number is chosen, we need to make sure every affected row/column/box looses this number as a possibility. 	
-}
-
-void PossibilitiesSquare::UpdatePossibilities(int FLAG){
-	if (FLAG == 1){
-		if (this->possibleNumbers[(this->internalhistoryArray) - 1] != 0){
-			this->possibleNumbers[(this->internalhistoryArray) -1] = 0;
-			--(this->numberpossible);
-		}
-		++(this->internalhistoryArray);
-		
-	}
-	else if (FLAG == -1){
-		--(this->internalhistoryArray);
-		if (this->possibleNumbers[(this->internalhistoryArray) - 1] == 0){
-			this->possibleNumbers[(this->internalhistoryArray) - 1] = this->internalhistoryArray;
-			++(this->numberpossible);
-		}
-	}
-}
-
-
 int PossibilitiesSquare::GetValue() {
 	return this->value;
 }
 
-void PossibilitiesSquare::SetValue(int val) {
-	this->value = val;
+void PossibilitiesSquare::SetValue(int value) {
+	this->value = value;
 }
 
 int PossibilitiesSquare::Getlocationi(){
@@ -77,11 +19,66 @@ int PossibilitiesSquare::Getlocationi(){
 int PossibilitiesSquare::Getlocationj(){
 	return this->locationj;
 }
-//Not sure if this is needed
+/*Not sure if this is needed
 int PossibilitiesSquare::Get
-
+*/
 int PossibilitiesSquare::GetnumberPossible(){
 	return this->numberpossible;
+}
+
+void PossibilitiesSquare::UpdateinternalhistoryArray(int squarevalue){
+	*internalhistoryArray = squarevalue;
+}
+
+//inputs NumbersSeenArray per row/column and updates the corresponding boxes
+//This function goes through the NumbersSeenArray for ONE box
+void PossibilitiesSquare::SetPossibilities(int * NumbersSeenArray, const int ArraySize){ 
+	for (int i = 0; i < ArraySize; i++) {
+		if ((NumbersSeenArray[i] == 1) && possibleNumbers[i] != 0) {
+			this->possibleNumbers[i] = 0;
+			--(this->numberpossible);
+		}
+	}
+
+}
+
+//This function takes the square with the least available numbers as input, and enters the smallest one available as it's value.
+int PossibilitiesSquare::EnterValue(){
+	for (; this->historyCounter < 10; ++(this->historyCounter)){
+		//needed to reset the value to zero before reversing the update array.
+		if (this->historyCounter == 9){
+			this->value = 0;
+		}
+		else{
+			this->value = this->possibleNumbers[historyCounter];
+			//We need a function here that keeps track of what is lost
+			if (this->value > 0){
+				++(this->historyCounter);
+			return 1;
+			}		
+		}
+	}
+	//reset history counter so it can go through values if square is reused
+	this->historyCounter = 0;
+	return 0; 	
+}
+
+void PossibilitiesSquare::UpdatePossibilities(int FLAG){
+	if (FLAG == 1){
+		if (this->possibleNumbers[*(this->internalhistoryArray) - 1] != 0){
+			this->possibleNumbers[*(this->internalhistoryArray) -1] = 0;
+			--(this->numberpossible);
+		}
+		++(this->internalhistoryArray);
+		
+	}
+	else if (FLAG == -1){
+		--(this->internalhistoryArray);
+		if (this->possibleNumbers[*(this->internalhistoryArray) - 1] == 0){
+			this->possibleNumbers[*(this->internalhistoryArray) - 1] = *(this->internalhistoryArray);
+			++(this->numberpossible);
+		}
+	}
 }
 
 //idea: make an array of CHANGED objects, so that when we need to reverse, we "pop" that object out an reverse.

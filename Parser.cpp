@@ -5,11 +5,12 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
-#include <string>
 #include <cstring>
 #include "Parser.hpp"
 
-
+int Parser::GetinitializationCounter(){
+	return initializationCounter;
+}
 
 void Parser::ParseInput(std::ifstream * file, PuzzleClass * puzzle) {
 	//char * line = new char;
@@ -28,15 +29,20 @@ void Parser::ParseInput(std::ifstream * file, PuzzleClass * puzzle) {
 
 		while ((*realBuffer) != '\0') {
 			//convert from string to int.
-			convert(result[j], (*realBuffer)); //must figure out a way to store each digit in int*
-			//Have to change result to int*
-			//puzzle->insertIntoRowOfSquares(result, puzzle->GetPuzzle()[j]);
-			//Hey it's Dylan and I am adding the following two lines so I can know how many non-zero ints are initialized.
-			if (result[j] !=0){
-				++initializationCounter;
+			if (result != NULL){
+				convert(result[j], (*realBuffer)); //must figure out a way to store each digit in int*
+				//Have to change result to int*
+				//puzzle->insertIntoRowOfSquares(result, puzzle->GetPuzzle()[j]);
+				//Hey it's Dylan and I am adding the following two lines so I can know how many non-zero ints are initialized.
+				if (result[j] !=0){
+					++initializationCounter;
+				}
+				realBuffer++;
+				j++;
 			}
-			realBuffer++;
-			j++;
+			else {
+				std::cout << "Result is uninitialized" << std::endl;
+			}
 		}
 
 		puzzle->insertIntoRowOfSquares(result, (puzzle->GetPuzzle())[i]);

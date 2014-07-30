@@ -9,34 +9,40 @@
 
 class PuzzleClass{
 	private:
-		PossibilitiesSquare ** PuzzleArray = new PossibilitiesSquare*[9];
+
 		int i = 0, j = 0;
 		int minimum = 0;
-		PossibilitiesSquare * externalhistoryArray;
-		PossibilitiesSquare * minimumSquare;
+		int squarei = 0, squarej = 0;
+		PossibilitiesSquare * externalhistoryArray = new PossibilitiesSquare();
 		const PossibilitiesSquare * startingpoint = externalhistoryArray;
+		PossibilitiesSquare ** PuzzleArray = new PossibilitiesSquare*[9];
+		PossibilitiesSquare * minimumSquare;
 
 	
 	public:	
 
-		void InitializePuzzleArray (PossibilitiesSquare **);
+		void InitializePuzzleArray();
 
 		void insertIntoRowOfSquares(int * , PossibilitiesSquare *);
 		//void StoreRow(int[]);
 
-		void SolvePuzzle();
-
 		bool CheckPuzzle();
 
-		bool CheckerAndInitializer(int * , int, int, int);
+		bool CheckerAndInitializer(int *, int, int, int);
+
+		bool CheckerAndInitializer(int *, const int, int, int, int, int);
 
 		void SetPuzzleArray(int *, const int);
+
+		void SetPuzzleArray(int *, const int, int, int);
 
 		void clearArray(int *);
 
 		PossibilitiesSquare ** GetPuzzle();
 
 		void SetMinimumSquare();
+
+		int PlaceSquare();
 
 		void UpdateExternalArray(int);
 		

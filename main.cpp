@@ -2,17 +2,22 @@
 #include <string>
 #include <stdio.h>
 #include <fstream>
+#include "PossibilitiesSquare.hpp"
 #include "PuzzleClass.hpp"
 #include "Parser.hpp"
+#include "Solver.hpp"
 
 using std::ifstream;
 using namespace std;
 
+Solver * PuzzleSolver = new Solver();
+Parser * GlobalParser = new Parser();
+PuzzleClass * GlobalPuzzle = new PuzzleClass();
+
+
 
 int main(int argc, char * argv[]) {
-	Parser * parser = new Parser();
-	PuzzleClass * puzzle = new PuzzleClass();
-
+	
 	ifstream * pfile = new ifstream;
 	pfile->open("test1.txt");
 	if (!pfile->good()) {
@@ -20,10 +25,12 @@ int main(int argc, char * argv[]) {
 		//return 1;
 	}
 
-	parser->ParseInput(pfile, puzzle);
+	GlobalPuzzle->InitializePuzzleArray();
+
+	GlobalParser->ParseInput(pfile, GlobalPuzzle);
 	pfile->close();
 
-	puzzle->PuzzleClass::SolvePuzzle();
+	PuzzleSolver->SolvePuzzle(GlobalPuzzle, GlobalParser);
 	
 	return 0;
 }
