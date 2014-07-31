@@ -17,16 +17,22 @@ void Parser::ParseInput(std::ifstream * file, PuzzleClass * puzzle) {
 	//char * begin = line;
 	//bool endFlag;
 	//Make notes here for clarity
-	std::string buffer;
-	char * realBuffer;
-	int j = 0;
+	//std::string buffer = "";
+	//char * realBuffer;
+	//int j = 0;
 	int i = 0;
-	int * result = new int;
-	while (!(file->eof())) {
-		getline((*file), buffer);
-		std::cout << buffer << std::endl;
-		std::strcpy(realBuffer, buffer.c_str());
-
+	//int * result = new int();
+	int PuzzleNumbers[81] = {0,0,0,1,0,5,0,6,8,0,0,0,0,0,0,7,0,1,9,0,1,0,0,0,0,3,0,0,0,7,0,2,6,0,0,0,5,0,0,0,0,0,0,0,3,0,0,0,8,7,0,4,0,0,0,3,0,0,0,0,8,0,5,1,0,5,0,0,0,0,0,0,7,9,0,4,0,1,0,0,0};
+	//!(file->std::ifstream::eof())
+	while (i < 9) {
+		std::cout <<"Enters while loop " << file << " " << *file << std::endl;
+		/*
+		std::getline((*file), buffer, '\n');
+		std::cout << buffer << " " << file << " " << *file << std::endl;
+		this->ChangetoC(buffer, realBuffer);
+		std::cout << "There is a problem here" << std::endl;
+		std::cout << file << " " << *file << std::endl;
+		std::cout << realBuffer[3] << std::endl;
 		while ((*realBuffer) != '\0') {
 			//convert from string to int.
 			if (result != NULL){
@@ -38,15 +44,20 @@ void Parser::ParseInput(std::ifstream * file, PuzzleClass * puzzle) {
 					++initializationCounter;
 				}
 				realBuffer++;
-				j++;
+				++j;
 			}
 			else {
 				std::cout << "Result is uninitialized" << std::endl;
 			}
+		}*/
+		int section[9] = {0};
+		for (int j = 0; j < 9; ++j){
+			section[j] = PuzzleNumbers[j + (9 * i)];	
+			std::cout << section[j] << std::endl;
 		}
-
-		puzzle->insertIntoRowOfSquares(result, (puzzle->GetPuzzle())[i]);
+				puzzle->insertIntoRowOfSquares(section, (puzzle->GetPuzzleRow(i)));
 		i++;
+		//buffer = "";
 	}
 	/*while (!(endFlag = Parser::getLine(file, line))) {
 		begin = line;
@@ -61,6 +72,11 @@ void Parser::ParseInput(std::ifstream * file, PuzzleClass * puzzle) {
 }
 
 
+void Parser::ChangetoC(std::string buffer, char * realBuffer){
+	for (int i = 0; i < 10; ++i){
+		realBuffer[i] = buffer[i];
+	}
+}
 
 int Parser::convert(int & result, char singleChar) {
 	
@@ -74,7 +90,6 @@ int Parser::convert(int & result, char singleChar) {
 		result = 0;
 		return result;
 	}
-
 }
 //returns true for EOF, false otherwise
 /*bool Parser::getLine(std::ifstream * file, char * line) {

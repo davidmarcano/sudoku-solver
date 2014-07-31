@@ -8,6 +8,7 @@
 
 void Solver::SolvePuzzle(PuzzleClass* Puzzle, Parser* Parser){
 	if (Puzzle->CheckPuzzle()){
+		std::cout << "Puzzle is proper! Beginning testing..." << std::endl;
 		do {
 			Puzzle->SetMinimumSquare();
 			if (Puzzle->PlaceSquare()) {

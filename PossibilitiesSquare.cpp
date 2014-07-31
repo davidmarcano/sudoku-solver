@@ -20,6 +20,17 @@ int PossibilitiesSquare::Getlocationi(){
 int PossibilitiesSquare::Getlocationj(){
 	return this->locationj;
 }
+
+void PossibilitiesSquare::Setlocationi(int locationi){
+	std::cout << "I set locationi!" << std::endl;
+	this->locationi = locationi;
+}
+
+void PossibilitiesSquare::Setlocationj(int locationj){
+	std::cout << "I set locationj" << std::endl;
+	this->locationj = locationj;
+}
+//We should do SetSquarei and SetSquarej eventually too.
 /*Not sure if this is needed
 int PossibilitiesSquare::Get
 */
@@ -28,17 +39,16 @@ int PossibilitiesSquare::GetnumberPossible(){
 }
 
 void PossibilitiesSquare::UpdateinternalhistoryArray(int squarevalue){
-	*internalhistoryArray = squarevalue;
+	*(this->internalhistoryArray) = squarevalue;
 }
 
 //inputs NumbersSeenArray per row/column and updates the corresponding boxes
 //This function goes through the NumbersSeenArray for ONE box
 void PossibilitiesSquare::SetPossibilities(int * NumbersSeenArray, const int ArraySize){ 
 	for (int i = 0; i < ArraySize; i++) {
-		if ((NumbersSeenArray[i] == 1) && possibleNumbers[i] != 0) {
+		if ((NumbersSeenArray[i] == 1) && (possibleNumbers[i] != 0)) {
 			this->possibleNumbers[i] = 0;
-			--(this->numberpossible);
-		}
+			--(this->numberpossible);		}
 	}
 
 }

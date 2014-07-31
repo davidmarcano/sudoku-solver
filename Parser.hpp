@@ -19,6 +19,8 @@ class Parser{
 
 		void ParseInput(std::ifstream *, PuzzleClass *);
 
+		void ChangetoC(std::string, char *);
+
 		int convert(int &, char);
 
 		bool getLine(std::ifstream *, char *);

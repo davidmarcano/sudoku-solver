@@ -13,8 +13,8 @@ class PossibilitiesSquare {
 		int Squarej = 0;
 		int possibleNumbers[9] = {1,2,3,4,5,6,7,8,9};
 		int	numberpossible = 9;
-		int * internalhistoryArray;
-		int internalupdateValue;
+		int * internalhistoryArray = new int();
+		int internalupdateValue = 0;
 		int historyCounter = 0;
 
 	public:
@@ -30,6 +30,10 @@ class PossibilitiesSquare {
 		int Getlocationi();
 
 		int Getlocationj();
+
+		void Setlocationi(int);
+
+		void Setlocationj(int);
 
 		int GetnumberPossible();
 

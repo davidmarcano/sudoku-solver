@@ -11,7 +11,7 @@ class PuzzleClass{
 	private:
 
 		int i = 0, j = 0;
-		int minimum = 0;
+		int minimum = 9;
 		int squarei = 0, squarej = 0;
 		PossibilitiesSquare * externalhistoryArray = new PossibilitiesSquare();
 		const PossibilitiesSquare * startingpoint = externalhistoryArray;
@@ -23,22 +23,22 @@ class PuzzleClass{
 
 		void InitializePuzzleArray();
 
-		void insertIntoRowOfSquares(int * , PossibilitiesSquare *);
+		void insertIntoRowOfSquares(int value[9], PossibilitiesSquare *);
 		//void StoreRow(int[]);
 
 		bool CheckPuzzle();
 
-		bool CheckerAndInitializer(int *, int, int, int);
+		bool CheckerAndInitializer(int *, int, int, int, int);
 
 		bool CheckerAndInitializer(int *, const int, int, int, int, int);
 
-		void SetPuzzleArray(int *, const int);
+		void SetPuzzleArray(int *, const int, int, int, int);
 
-		void SetPuzzleArray(int *, const int, int, int);
+		void SetPuzzleArray(int *, const int, int, int, int, int);
 
 		void clearArray(int *);
 
-		PossibilitiesSquare ** GetPuzzle();
+		PossibilitiesSquare * GetPuzzleRow(int);
 
 		void SetMinimumSquare();
 

@@ -96,3 +96,10 @@ Changes: Added new Sovler class to help make things clear.
 
 Questions:
 for loops in CheckerAndInitializer: questions about int i = 0. There may be problems.
+
+7/31/14
+GDB
+
+Parser
+
+PuzzleClass.cpp:24
