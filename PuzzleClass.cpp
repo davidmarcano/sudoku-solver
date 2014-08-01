@@ -22,7 +22,12 @@ void PuzzleClass::InitializePuzzleArray(){
 	this->j = 0;
 }
 
-
+void PuzzleClass::InitializeExternalArray(){
+	for (int i = 0; i < 100; ++i){
+		externalhistoryArray[i] = new PossibilitiesSquare;
+	}
+	std::cout << "External Array initialized!" << std::endl;
+}
 //returns true if the puzzle is proper, false otherwise.
 bool PuzzleClass::CheckPuzzle() {
 	int FLAG = 1;	
@@ -30,7 +35,7 @@ bool PuzzleClass::CheckPuzzle() {
 	this->j = 0;
 	//reset i and j in case they were previously used
 	const int ArraySize = 9;//sizeof(this->PuzzleArray[0]) / sizeof(this->PuzzleArray[0][0]);
-	std::cout << ArraySize << std::endl;
+	//std::cout << ArraySize << std::endl;
 	//this is to check the row validity
 	//while (CheckCounter < 9) {
 	int NumbersSeenArray[9] = {0};
@@ -40,7 +45,7 @@ bool PuzzleClass::CheckPuzzle() {
 	}
 	FLAG = -1;
 	this->clearArray(NumbersSeenArray);
-	std::cout << "Rows passed!" << std::endl;
+	//std::cout << "Rows passed!" << std::endl;
 	this->i = 0;
 	this->j = 0;
 	if (!(this->CheckerAndInitializer(NumbersSeenArray, ArraySize, this->j, this->i, FLAG))){
@@ -48,7 +53,7 @@ bool PuzzleClass::CheckPuzzle() {
 	}
 
 	this->clearArray(NumbersSeenArray);
-	std::cout << "Columns passed!" << std::endl;
+	//std::cout << "Columns passed!" << std::endl;
 	//overloading CheckAndInitializer for boxes:
 	this->i = 0;
 	this->j = 0;
@@ -58,7 +63,7 @@ bool PuzzleClass::CheckPuzzle() {
 		return false;
 	}
 	this->clearArray(NumbersSeenArray);
-	std::cout << "Boxes passed!" << std::endl;
+	//std::cout << "Boxes passed!" << std::endl;
 	return true;
 }				
 
@@ -82,7 +87,7 @@ bool PuzzleClass::CheckerAndInitializer(int * NumbersSeenArray, const int ArrayS
 			j = 0;
 			this->SetPuzzleArray(NumbersSeenArray, ArraySize, i, j, FLAG);
 			this->clearArray(NumbersSeenArray);
-			std::cout << "Went through " << i << " times before failing." << std::endl;
+			//std::cout << "Went through " << i << " times before failing." << std::endl;
 		}
 	}
 
@@ -105,12 +110,12 @@ bool PuzzleClass::CheckerAndInitializer(int * NumbersSeenArray, const int ArrayS
 			i = 0;
 			this->SetPuzzleArray(NumbersSeenArray, ArraySize, i, j, FLAG);
 			this->clearArray(NumbersSeenArray);
-			std::cout << "Went through " << j << " times before failing." << std::endl;
+			//std::cout << "Went through " << j << " times before failing." << std::endl;
 		}
 	}
 
 
-	std::cout << "Exits CheckerAndInitializer for loop as true" << std::endl;
+	//std::cout << "Exits CheckerAndInitializer for loop as true" << std::endl;
 	return true;
 }
 
@@ -134,13 +139,13 @@ bool PuzzleClass::CheckerAndInitializer(int * NumbersSeenArray, const int ArrayS
 			i = 0;
 			this->SetPuzzleArray(NumbersSeenArray, ArraySize, squarei, squarej, i, j);
 			this->clearArray(NumbersSeenArray);
-			std::cout << "Went through " << squarej + (3 * squarei) << " times before failing." << std::endl;
+			//std::cout << "Went through " << squarej + (3 * squarei) << " times before failing." << std::endl;
 		}
 		//reset squarej when moving to the next row of Squares
 		squarej = 0;
 	}
 	squarei = 0;
-	std::cout << "Exits CheckerAndInitializer for loop as true" << std::endl;
+	//std::cout << "Exits CheckerAndInitializer for loop as true" << std::endl;
 	return true;
 }
 //Question about int i = 0
@@ -201,7 +206,7 @@ void PuzzleClass::SetMinimumSquare(){
 		for (int j = 0; j < 9; ++j){
 			if ((this->PuzzleArray[i][j].GetValue() == 0) && (this->PuzzleArray[i][j].GetnumberPossible() < minimum)){
 				this->minimum = this->PuzzleArray[i][j].GetnumberPossible();
-				this->minimumSquare = &(this->PuzzleArray[i][j]);
+				*(this->externalhistoryArray) = &(this->PuzzleArray[i][j]);
 			}
 		}
 	}
@@ -209,13 +214,12 @@ void PuzzleClass::SetMinimumSquare(){
 }
 
 int PuzzleClass::PlaceSquare(){
-	return minimumSquare->EnterValue();
+	return (*this->externalhistoryArray)->EnterValue();
 }
 void PuzzleClass::UpdateExternalArray(int FLAG){
 	//originally UpdateExternalArray
 	if (FLAG == 1){
 		++(this->externalhistoryArray);
-		this->externalhistoryArray = this->minimumSquare;
 			}
 	else if (FLAG == -1){
 		--(this->externalhistoryArray);
@@ -224,41 +228,53 @@ void PuzzleClass::UpdateExternalArray(int FLAG){
 
 void PuzzleClass::UpdateInternalArray(int FLAG){
 	if (FLAG == 1){
-		this->i = this->externalhistoryArray->Getlocationi();
+		this->i = (*this->externalhistoryArray)->Getlocationi();
 		for (this->j = 0; this->j < 9; ++(this->j)){
-			this->PuzzleArray[this->i][this->j].UpdateinternalhistoryArray(this->externalhistoryArray->GetValue());
-			this->PuzzleArray[this->i][this->j].UpdatePossibilities(1);
+			if (this->PuzzleArray[this->i][this->j].GetValue() == 0){
+				this->PuzzleArray[this->i][this->j].UpdateinternalhistoryArray((*this->externalhistoryArray)->GetValue());
+				this->PuzzleArray[this->i][this->j].UpdatePossibilities(1);
+			}
 		}
 
-		this->j = this->externalhistoryArray->Getlocationj();
+		this->j = (*this->externalhistoryArray)->Getlocationj();
 		for (this->i = 0; this->i < 9; ++i){
-			this->PuzzleArray[this->i][this->j].UpdateinternalhistoryArray(this->externalhistoryArray->GetValue());
-			this->PuzzleArray[this->i][this->j].UpdatePossibilities(1);
+			if (this->PuzzleArray[this->i][this->j].GetValue() == 0){
+				this->PuzzleArray[this->i][this->j].UpdateinternalhistoryArray((*this->externalhistoryArray)->GetValue());
+				this->PuzzleArray[this->i][this->j].UpdatePossibilities(1);
+			}
 		}
-		this->squarei = (this->externalhistoryArray->Getlocationi() / 3);
-		this->squarej = (this->externalhistoryArray->Getlocationj() / 3);
+		this->squarei = ((*this->externalhistoryArray)->Getlocationi() / 3);
+		this->squarej = ((*this->externalhistoryArray)->Getlocationj() / 3);
 		for(int i = 0; i < 3; ++i){
 			for(int j = 0; j < 3; ++j){
-			this->PuzzleArray[i + (3 * squarei)][j + (3 * squarej)].UpdateinternalhistoryArray(this->externalhistoryArray->GetValue());
-			this->PuzzleArray[i + (3 * squarei)][j + (3 * squarej)].UpdatePossibilities(1);
+				if (this->PuzzleArray[i + (3 * squarei)][j + (3 * squarej)].GetValue() == 0){
+					this->PuzzleArray[i + (3 * squarei)][j + (3 * squarej)].UpdateinternalhistoryArray((*this->externalhistoryArray)->GetValue());
+					this->PuzzleArray[i + (3 * squarei)][j + (3 * squarej)].UpdatePossibilities(1);
+				}
 			}
 		}
 	}
 
 	else if (FLAG == -1){
-		this->i = this->externalhistoryArray->Getlocationi();
+		this->i = (*this->externalhistoryArray)->Getlocationi();
 		for (this->j = 0; this->j < 9; ++(this->j)){
-			this->PuzzleArray[this->i][this->j].UpdatePossibilities(-1);
+			if ((this->PuzzleArray[this->i][this->j].GetValue() == 0) && ((*this->externalhistoryArray)->Getlocationj() != this->j)){
+				this->PuzzleArray[this->i][this->j].UpdatePossibilities(-1);
+			}
 		}
-		this->j = this->externalhistoryArray->Getlocationj();
+		this->j = (*this->externalhistoryArray)->Getlocationj();
 		for (this->i = 0; this->i < 9; ++i){
-			this->PuzzleArray[this->i][this->j].UpdatePossibilities(-1);
+			if ((this->PuzzleArray[this->i][this->j].GetValue() == 0) && ((*this->externalhistoryArray)->Getlocationi() != this->i)){
+				this->PuzzleArray[this->i][this->j].UpdatePossibilities(-1);
+			}
 		}
-		this->squarei = (this->externalhistoryArray->Getlocationi() / 3);
-		this->squarej = (this->externalhistoryArray->Getlocationj() / 3);
+		this->squarei = ((*this->externalhistoryArray)->Getlocationi() / 3);
+		this->squarej = ((*this->externalhistoryArray)->Getlocationj() / 3);
 		for(int i = 0; i < 3; ++i){
 			for(int j = 0; j < 3; ++j){
-			this->PuzzleArray[i + (3 * squarei)][j + (3 * squarej)].UpdatePossibilities(-1);
+				if ((this->PuzzleArray[i + (3 * squarei)][j + (3 * squarej)].GetValue() == 0) && ((*this->externalhistoryArray)->Getlocationi() != (i + (3 * squarei)) && ((*this->externalhistoryArray)->Getlocationj() != (j + (3 * squarej))))){
+					this->PuzzleArray[i + (3 * squarei)][j + (3 * squarej)].UpdatePossibilities(-1);
+				}
 			}
 		}
 	}
@@ -285,6 +301,17 @@ void PuzzleClass::insertIntoRowOfSquares(int value[9], PossibilitiesSquare * puz
 
 	}
 
+}
+
+void PuzzleClass::PrintPuzzle(){
+	int printrow[9] = {0};
+	for (int i = 0; i < 9; ++i){
+		for (int j = 0; j < 9; ++j){
+			printrow[j] = this->PuzzleArray[i][j].GetValue();
+			std::cout << printrow[j];
+		}
+		std::cout << std::endl;
+	}
 }
 
 /*

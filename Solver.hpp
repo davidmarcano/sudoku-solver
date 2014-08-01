@@ -10,7 +10,7 @@
 class Solver {
 	private:
 		int solverIteration = 0;
-
+		bool skipSetMinimumSquare = false;
 	public:
 
 		void SolvePuzzle(PuzzleClass*, Parser*);

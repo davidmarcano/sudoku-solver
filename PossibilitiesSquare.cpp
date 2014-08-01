@@ -9,7 +9,7 @@ int PossibilitiesSquare::GetValue() {
 }
 
 void PossibilitiesSquare::SetValue(int value) {
-	std::cout << "I set value!" << std::endl;
+	//std::cout << "I set value!" << std::endl;
 	this->value = value;
 }
 
@@ -22,12 +22,12 @@ int PossibilitiesSquare::Getlocationj(){
 }
 
 void PossibilitiesSquare::Setlocationi(int locationi){
-	std::cout << "I set locationi!" << std::endl;
+	//std::cout << "I set locationi!" << std::endl;
 	this->locationi = locationi;
 }
 
 void PossibilitiesSquare::Setlocationj(int locationj){
-	std::cout << "I set locationj" << std::endl;
+	//std::cout << "I set locationj" << std::endl;
 	this->locationj = locationj;
 }
 //We should do SetSquarei and SetSquarej eventually too.
@@ -39,7 +39,10 @@ int PossibilitiesSquare::GetnumberPossible(){
 }
 
 void PossibilitiesSquare::UpdateinternalhistoryArray(int squarevalue){
-	*(this->internalhistoryArray) = squarevalue;
+	if (this->possibleNumbers[squarevalue - 1] != 0){
+		++(this->internalhistoryArray);
+		*(this->internalhistoryArray) = squarevalue;
+	}
 }
 
 //inputs NumbersSeenArray per row/column and updates the corresponding boxes
@@ -48,7 +51,8 @@ void PossibilitiesSquare::SetPossibilities(int * NumbersSeenArray, const int Arr
 	for (int i = 0; i < ArraySize; i++) {
 		if ((NumbersSeenArray[i] == 1) && (possibleNumbers[i] != 0)) {
 			this->possibleNumbers[i] = 0;
-			--(this->numberpossible);		}
+			--(this->numberpossible);		
+		}
 	}
 
 }
@@ -80,15 +84,14 @@ void PossibilitiesSquare::UpdatePossibilities(int FLAG){
 			this->possibleNumbers[*(this->internalhistoryArray) -1] = 0;
 			--(this->numberpossible);
 		}
-		++(this->internalhistoryArray);
 		
 	}
 	else if (FLAG == -1){
-		--(this->internalhistoryArray);
-		if (this->possibleNumbers[*(this->internalhistoryArray) - 1] == 0){
-			this->possibleNumbers[*(this->internalhistoryArray) - 1] = *(this->internalhistoryArray);
+		if (this->possibleNumbers[(*(this->internalhistoryArray)) - 1] == 0){
+			this->possibleNumbers[(*(this->internalhistoryArray)) - 1] = *(this->internalhistoryArray);
 			++(this->numberpossible);
 		}
+		--(this->internalhistoryArray);
 	}
 }
 

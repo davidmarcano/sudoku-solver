@@ -22,10 +22,22 @@ void Parser::ParseInput(std::ifstream * file, PuzzleClass * puzzle) {
 	//int j = 0;
 	int i = 0;
 	//int * result = new int();
-	int PuzzleNumbers[81] = {0,0,0,1,0,5,0,6,8,0,0,0,0,0,0,7,0,1,9,0,1,0,0,0,0,3,0,0,0,7,0,2,6,0,0,0,5,0,0,0,0,0,0,0,3,0,0,0,8,7,0,4,0,0,0,3,0,0,0,0,8,0,5,1,0,5,0,0,0,0,0,0,7,9,0,4,0,1,0,0,0};
+	//int PuzzleNumbers[81] = {0,0,0,1,0,5,0,6,8,0,0,0,0,0,0,7,0,1,9,0,1,0,0,0,0,3,0,0,0,7,0,2,6,0,0,0,5,0,0,0,0,0,0,0,3,0,0,0,8,7,0,4,0,0,0,3,0,0,0,0,8,0,5,1,0,5,0,0,0,0,0,0,7,9,0,4,0,1,0,0,0};
+	int PuzzleNumbers[81] = {0,0,6,0,0,0,0,0,4,0,0,0,8,6,0,7,3,0,0,4,0,3,5,0,0,0,2,1,7,0,4,0,0,6,0,0,0,9,0,0,0,0,0,8,0,0,0,8,0,0,6,0,1,7,2,0,0,0,8,1,0,4,0,0,6,7,0,4,3,0,0,0,8,0,0,0,0,0,3,0,0};
+	
+
+	/*0,0,9,6,0,7,4,3,1,
+	8,0,0,0,5,3,0,0,9,
+	0,6,0,2,0,0,5,0,0,
+	0,0,8,9,0,0,0,0,6,
+	0,0,2,0,4,0,7,0,5,
+	0,0,0,0,0,1,0,0,0,
+	0,0,0,5,9,4,3,0,2,
+	0,2,7,0,3,0,0,1,0,
+	4,0,0,1,0,2,6,5,0,*/
 	//!(file->std::ifstream::eof())
 	while (i < 9) {
-		std::cout <<"Enters while loop " << file << " " << *file << std::endl;
+		//std::cout <<"Enters while loop " << file << " " << *file << std::endl;
 		/*
 		std::getline((*file), buffer, '\n');
 		std::cout << buffer << " " << file << " " << *file << std::endl;
@@ -53,7 +65,7 @@ void Parser::ParseInput(std::ifstream * file, PuzzleClass * puzzle) {
 		int section[9] = {0};
 		for (int j = 0; j < 9; ++j){
 			section[j] = PuzzleNumbers[j + (9 * i)];	
-			std::cout << section[j] << std::endl;
+			//std::cout << section[j] << std::endl;
 		}
 				puzzle->insertIntoRowOfSquares(section, (puzzle->GetPuzzleRow(i)));
 		i++;
