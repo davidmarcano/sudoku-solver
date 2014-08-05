@@ -214,7 +214,7 @@ void PuzzleClass::SetMinimumSquare(){
 }
 
 int PuzzleClass::PlaceSquare(){
-	return (*this->externalhistoryArray)->EnterValue();
+	return ((*this->externalhistoryArray)->EnterValue());
 }
 void PuzzleClass::UpdateExternalArray(int FLAG){
 	//originally UpdateExternalArray
@@ -230,27 +230,39 @@ void PuzzleClass::UpdateInternalArray(int FLAG){
 	if (FLAG == 1){
 		this->i = (*this->externalhistoryArray)->Getlocationi();
 		for (this->j = 0; this->j < 9; ++(this->j)){
-			if (this->PuzzleArray[this->i][this->j].GetValue() == 0){
+		//	if (this->PuzzleArray[this->i][this->j].GetValue() == 0){
 				this->PuzzleArray[this->i][this->j].UpdateinternalhistoryArray((*this->externalhistoryArray)->GetValue());
 				this->PuzzleArray[this->i][this->j].UpdatePossibilities(1);
+		//	}
+			if ((this->i == 2) && (this->j == 7)) {
+				std::cout << "row add: ";
+				this->PuzzleArray[i][j].PrintInternalHistoryArray();
 			}
 		}
 
 		this->j = (*this->externalhistoryArray)->Getlocationj();
 		for (this->i = 0; this->i < 9; ++i){
-			if (this->PuzzleArray[this->i][this->j].GetValue() == 0){
+		//	if (this->PuzzleArray[this->i][this->j].GetValue() == 0){
 				this->PuzzleArray[this->i][this->j].UpdateinternalhistoryArray((*this->externalhistoryArray)->GetValue());
 				this->PuzzleArray[this->i][this->j].UpdatePossibilities(1);
+		//	}
+			if ((this->i == 2) && (this->j == 7)) {
+				std::cout << "column add: ";
+				this->PuzzleArray[i][j].PrintInternalHistoryArray();
 			}
 		}
 		this->squarei = ((*this->externalhistoryArray)->Getlocationi() / 3);
 		this->squarej = ((*this->externalhistoryArray)->Getlocationj() / 3);
 		for(int i = 0; i < 3; ++i){
 			for(int j = 0; j < 3; ++j){
-				if (this->PuzzleArray[i + (3 * squarei)][j + (3 * squarej)].GetValue() == 0){
+		//		if (this->PuzzleArray[i + (3 * squarei)][j + (3 * squarej)].GetValue() == 0){
 					this->PuzzleArray[i + (3 * squarei)][j + (3 * squarej)].UpdateinternalhistoryArray((*this->externalhistoryArray)->GetValue());
 					this->PuzzleArray[i + (3 * squarei)][j + (3 * squarej)].UpdatePossibilities(1);
-				}
+		//		}
+				if ((i + (3 * squarei) == 2) && ((j + (3 * squarej) == 7))) {
+					std::cout << "box add: ";
+					this->PuzzleArray[i][j].PrintInternalHistoryArray();
+			}
 			}
 		}
 	}
@@ -258,22 +270,34 @@ void PuzzleClass::UpdateInternalArray(int FLAG){
 	else if (FLAG == -1){
 		this->i = (*this->externalhistoryArray)->Getlocationi();
 		for (this->j = 0; this->j < 9; ++(this->j)){
-			if ((this->PuzzleArray[this->i][this->j].GetValue() == 0) && ((*this->externalhistoryArray)->Getlocationj() != this->j)){
+		///	if ((this->PuzzleArray[this->i][this->j].GetValue() == 0) && ((*this->externalhistoryArray)->Getlocationj() != this->j)){
 				this->PuzzleArray[this->i][this->j].UpdatePossibilities(-1);
+		//	}
+			if ((this->i == 2) && (this->j == 7)) {
+				std::cout << "row remove: ";
+				this->PuzzleArray[i][j].PrintInternalHistoryArray();
 			}
 		}
 		this->j = (*this->externalhistoryArray)->Getlocationj();
 		for (this->i = 0; this->i < 9; ++i){
-			if ((this->PuzzleArray[this->i][this->j].GetValue() == 0) && ((*this->externalhistoryArray)->Getlocationi() != this->i)){
+		//	if ((this->PuzzleArray[this->i][this->j].GetValue() == 0) && ((*this->externalhistoryArray)->Getlocationi() != this->i)){
 				this->PuzzleArray[this->i][this->j].UpdatePossibilities(-1);
+		//	}
+			if ((this->i == 2) && (this->j == 7)) {
+				std::cout << "column remove: ";
+				this->PuzzleArray[i][j].PrintInternalHistoryArray();
 			}
 		}
 		this->squarei = ((*this->externalhistoryArray)->Getlocationi() / 3);
 		this->squarej = ((*this->externalhistoryArray)->Getlocationj() / 3);
 		for(int i = 0; i < 3; ++i){
-			for(int j = 0; j < 3; ++j){
-				if ((this->PuzzleArray[i + (3 * squarei)][j + (3 * squarej)].GetValue() == 0) && ((*this->externalhistoryArray)->Getlocationi() != (i + (3 * squarei)) && ((*this->externalhistoryArray)->Getlocationj() != (j + (3 * squarej))))){
+			for(int j = 0; j < 3; ++j) {
+		//		if ((this->PuzzleArray[i + (3 * squarei)][j + (3 * squarej)].GetValue() == 0) && ((*this->externalhistoryArray)->Getlocationi() != (i + (3 * squarei)) && ((*this->externalhistoryArray)->Getlocationj() != (j + (3 * squarej))))){
 					this->PuzzleArray[i + (3 * squarei)][j + (3 * squarej)].UpdatePossibilities(-1);
+		//		}
+				if ((i + (3 * squarei) == 2) && ((j + (3 * squarej) == 7))) {
+					std::cout << "box remove: ";
+					this->PuzzleArray[i][j].PrintInternalHistoryArray();
 				}
 			}
 		}

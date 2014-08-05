@@ -43,6 +43,8 @@ class PossibilitiesSquare {
 
 		void UpdateinternalhistoryArray(int); 
 
+		void PrintInternalHistoryArray();
+
 
 
 		//void PossibilityUpdater(int *, int);

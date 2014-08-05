@@ -43,6 +43,11 @@ void PossibilitiesSquare::UpdateinternalhistoryArray(int squarevalue){
 		++(this->internalhistoryArray);
 		*(this->internalhistoryArray) = squarevalue;
 	}
+	else {
+		++(this->internalhistoryArray);
+		*(this->internalhistoryArray) = 0;
+	}
+
 }
 
 //inputs NumbersSeenArray per row/column and updates the corresponding boxes
@@ -80,21 +85,34 @@ int PossibilitiesSquare::EnterValue(){
 
 void PossibilitiesSquare::UpdatePossibilities(int FLAG){
 	if (FLAG == 1){
-		if (this->possibleNumbers[*(this->internalhistoryArray) - 1] != 0){
-			this->possibleNumbers[*(this->internalhistoryArray) -1] = 0;
-			--(this->numberpossible);
+		if (*(this->internalhistoryArray) != 0){
+			if (this->possibleNumbers[*(this->internalhistoryArray) - 1] != 0){
+				this->possibleNumbers[*(this->internalhistoryArray) -1] = 0;
+				--(this->numberpossible);
+			}
 		}
-		
 	}
+
 	else if (FLAG == -1){
-		if (this->possibleNumbers[(*(this->internalhistoryArray)) - 1] == 0){
+		if (*(this->internalhistoryArray) != 0){
+			if (this->possibleNumbers[(*(this->internalhistoryArray)) - 1] == 0){
 			this->possibleNumbers[(*(this->internalhistoryArray)) - 1] = *(this->internalhistoryArray);
 			++(this->numberpossible);
+			}
 		}
 		--(this->internalhistoryArray);
 	}
 }
 
+void PossibilitiesSquare::PrintInternalHistoryArray() {
+	std::cout << "internal history: " << *(this->internalhistoryArray) << std::endl;
+
+	std::cout << "possibleNumbers: ";
+	for (int i = 0; i < 9; i++) {
+		std::cout << (this->possibleNumbers)[i];
+	}
+	std::cout << std::endl;
+}
 //idea: make an array of CHANGED objects, so that when we need to reverse, we "pop" that object out an reverse.
 // and use that object to change the AFFECTED boxes only. Each box will have an internal array keeping track
 // of history ONLY related to it's rows/columns/boxes.
