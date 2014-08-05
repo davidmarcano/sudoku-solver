@@ -7,36 +7,34 @@
 
 
 void Solver::SolvePuzzle(PuzzleClass* Puzzle, Parser* Parser){
+	int counter = 0;
 	if (Puzzle->CheckPuzzle()){
 		std::cout << "Puzzle is proper! Beginning testing..." << std::endl;
 		do {
-			if (Puzzle->CheckPuzzle()){
-				std::cout << "Puzzle is proper through iteration " << solverIteration << std::endl;
-				Puzzle->PrintPuzzle();
-			}
-			
-			std::cout << solverIteration << std::endl;
+			std::cout << "Number through: " << ++counter << std::endl;
+			Puzzle->PrintPuzzle();
+			std::cout << "Solver iteration: " << solverIteration << std::endl;
 			if (!skipSetMinimumSquare){
 				Puzzle->SetMinimumSquare();
 			}
 
 			if (Puzzle->PlaceSquare()) {
+				std::cout << "Square is placed" << std::endl;
 				Puzzle->UpdateInternalArray(1);
 				++(this->solverIteration);
 				Puzzle->UpdateExternalArray(1);
-
-
 				skipSetMinimumSquare = false;
 			}
 			else {
-			 	std::cout << "We have gone backwards!" << std::endl;
 				Puzzle->UpdateExternalArray(-1);
 				--(this->solverIteration);
-			 	Puzzle->UpdateInternalArray(-1);
+				Puzzle->UpdateInternalArray(-1);
+			 
 
 				skipSetMinimumSquare = true;
+				std::cout << "We updated internal Array!" << std::endl;
 			}
-		} while ((solverIteration < 81 - 30) && (solverIteration != -1));//26Parser->GetinitializationCounter()) && solverIteration != 0);
+		} while ((solverIteration < 81) && (solverIteration != -1));//26Parser->GetinitializationCounter()) && solverIteration != 0);
 
 		if (solverIteration == -1)
 			std::cout << "Puzzle is unsolvable!" << std::endl;

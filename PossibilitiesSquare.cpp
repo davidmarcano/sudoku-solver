@@ -34,7 +34,7 @@ void PossibilitiesSquare::Setlocationj(int locationj){
 /*Not sure if this is needed
 int PossibilitiesSquare::Get
 */
-int PossibilitiesSquare::GetnumberPossible(){
+int PossibilitiesSquare::Getnumberpossible(){
 	return this->numberpossible;
 }
 
@@ -42,6 +42,22 @@ void PossibilitiesSquare::UpdateinternalhistoryArray(int squarevalue){
 	if (this->possibleNumbers[squarevalue - 1] != 0){
 		++(this->internalhistoryArray);
 		*(this->internalhistoryArray) = squarevalue;
+	}
+	else if (this->possibleNumbers[squarevalue - 1] == 0){
+		++(this->internalhistoryArray);
+		*(this->internalhistoryArray) = 0;
+	}
+}
+
+void PossibilitiesSquare::ResetexternalArray(int FLAG){ //should change the name for this
+	if (FLAG == 1){
+		//this->possibleNumbers[value - 1] = 0;
+		--numberpossible;
+	}
+
+	if (FLAG == -1){
+		//this->possibleNumbers[value -1] = value;
+		++numberpossible;
 	}
 }
 
@@ -59,6 +75,7 @@ void PossibilitiesSquare::SetPossibilities(int * NumbersSeenArray, const int Arr
 
 //This function takes the square with the least available numbers as input, and enters the smallest one available as it's value.
 int PossibilitiesSquare::EnterValue(){
+	std::cout << "Value of numberpossible: " << numberpossible << std::endl;
 	for (; this->historyCounter < 10; ++(this->historyCounter)){
 		//needed to reset the value to zero before reversing the update array.
 		if (this->historyCounter == 9){
@@ -69,32 +86,51 @@ int PossibilitiesSquare::EnterValue(){
 			//We need a function here that keeps track of what is lost
 			if (this->value > 0){
 				++(this->historyCounter);
-			return 1;
+				//++timesthrough;
+				std::cout << "location of placed square: " << locationi << " " << locationj << std::endl;				
+				return 1;
 			}		
 		}
 	}
 	//reset history counter so it can go through values if square is reused
 	this->historyCounter = 0;
+	//for (int i = 0; i < timesthrough; ++i){
+	//	this->ResetexternalArray(-1);
+	//}
+	std::cout << "Could not place properly" <<std::endl;
 	return 0; 	
 }
 
 void PossibilitiesSquare::UpdatePossibilities(int FLAG){
 	if (FLAG == 1){
-		if (this->possibleNumbers[*(this->internalhistoryArray) - 1] != 0){
+		if (this->internalhistoryArray != 0){
+			if (this->possibleNumbers[*(this->internalhistoryArray) - 1] != 0){
 			this->possibleNumbers[*(this->internalhistoryArray) -1] = 0;
 			--(this->numberpossible);
+			}
 		}
-		
 	}
 	else if (FLAG == -1){
-		if (this->possibleNumbers[(*(this->internalhistoryArray)) - 1] == 0){
-			this->possibleNumbers[(*(this->internalhistoryArray)) - 1] = *(this->internalhistoryArray);
-			++(this->numberpossible);
+		if (this->internalhistoryArray == 0){
+			--(this->internalhistoryArray);
 		}
-		--(this->internalhistoryArray);
+
+		else {
+			if ((this->possibleNumbers[(*(this->internalhistoryArray)) - 1]) == 0) {
+				this->possibleNumbers[(*(this->internalhistoryArray)) - 1] = *(this->internalhistoryArray);
+				++(this->numberpossible); //There are problems here!
+				--(this->internalhistoryArray);
+			}
+		}
 	}
 }
 
+
+/*void PossibilitiesSquare::GetpossibleNumbers(){
+	for (int k = 0; k < 9; ++k){
+		std::cout << possibleNumbers[k] <<std::endl;
+	}
+}
 //idea: make an array of CHANGED objects, so that when we need to reverse, we "pop" that object out an reverse.
 // and use that object to change the AFFECTED boxes only. Each box will have an internal array keeping track
 // of history ONLY related to it's rows/columns/boxes.
@@ -102,7 +138,7 @@ void PossibilitiesSquare::UpdatePossibilities(int FLAG){
 
 //Takes value of the most recent change and uses that to update InternalArrays
 //Many things are wrong with the following code. I leave it here in case we need some of its functionality.
-/*void PossibilitiesSquare::UpdateInternalArray(int FLAG, PossibilitiesSquare * minimumSquare){
+void PossibilitiesSquare::UpdateInternalArray(int FLAG, PossibilitiesSquare * minimumSquare){
 	if (FLAG == 1){
 		//gets the value of the minimumSquare
 			this->PuzzleArray[i][j].UpdateValue() = minimumSquare.GetValue();
