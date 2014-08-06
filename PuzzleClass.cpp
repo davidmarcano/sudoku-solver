@@ -48,7 +48,7 @@ bool PuzzleClass::CheckPuzzle() {
 	//std::cout << "Rows passed!" << std::endl;
 	this->i = 0;
 	this->j = 0;
-	if (!(this->CheckerAndInitializer(NumbersSeenArray, ArraySize, this->j, this->i, FLAG))){
+	if (!(this->CheckerAndInitializer(NumbersSeenArray, ArraySize, this->i, this->j, FLAG))){
 		return false;
 	}
 
@@ -204,11 +204,10 @@ void PuzzleClass::SetPuzzleArray(int * NumbersSeenArray, const int ArraySize, in
 void PuzzleClass::SetMinimumSquare(){
 	for (int i = 0; i < 9; ++i){
 		for (int j = 0; j < 9; ++j){
-			if ((this->PuzzleArray[i][j].GetValue() == 0) && (this->PuzzleArray[i][j].Getnumberpossible() < minimum)){
+			if (((this->PuzzleArray[i][j].GetValue()) == 0) && ((this->PuzzleArray[i][j].Getnumberpossible()) < minimum)){
 				this->minimum = this->PuzzleArray[i][j].Getnumberpossible();
 				*(this->externalhistoryArray) = &(this->PuzzleArray[i][j]);
 				std::cout << "The value of minimum: " << minimum << std::endl;
-				std::cout << "The value of number possible: " << this->PuzzleArray[i][j].Getnumberpossible();
 				std::cout << " at location " << this->PuzzleArray[i][j].Getlocationi() << " " << this->PuzzleArray[i][j].Getlocationj() << std::endl;
 				//std::cout << "possibleNumbers: " << this->PuzzleArray[i][j].GetpossibleNumbers() << std::endl;
 			}
@@ -234,7 +233,7 @@ void PuzzleClass::UpdateExternalArray(int FLAG){
 void PuzzleClass::UpdateInternalArray(int FLAG){
 	if (FLAG == 1) {
 		//(*this->externalhistoryArray)->ResetexternalArray(1);
-		std::cout << "numbers possible++ for PuzzleArray[2][0]: " << PuzzleArray[0][1].Getnumberpossible() << std::endl;
+		std::cout << "numbers possible++ for PuzzleArray[5][0]: " << PuzzleArray[5][0].Getnumberpossible() << std::endl;
 		std::cout << "Locationi = " << (*this->externalhistoryArray)->Getlocationi() << std::endl;
 		this->i = (*this->externalhistoryArray)->Getlocationi();
 		for (this->j = 0; this->j < 9; ++(this->j)){
@@ -249,7 +248,7 @@ void PuzzleClass::UpdateInternalArray(int FLAG){
 			}
 
 		}
-		std::cout << "numbers possible+ for PuzzleArray[0][1]: " << PuzzleArray[0][1].Getnumberpossible() << std::endl;
+		std::cout << "numbers possible+ for PuzzleArray[5][0]: " << PuzzleArray[5][0].Getnumberpossible() << std::endl;
 
 		this->j = (*this->externalhistoryArray)->Getlocationj();
 		std::cout << "Locationj = " << (*this->externalhistoryArray)->Getlocationj() << std::endl;
@@ -266,7 +265,7 @@ void PuzzleClass::UpdateInternalArray(int FLAG){
 			}
 			
 		}
-		std::cout << "numbers possible+ for PuzzleArray[2][0]: " << PuzzleArray[0][1].Getnumberpossible() << std::endl;
+		std::cout << "numbers possible+ for PuzzleArray[5][0]: " << PuzzleArray[5][0].Getnumberpossible() << std::endl;
 		
 		this->squarei = ((*this->externalhistoryArray)->Getlocationi() / 3);
 		this->squarej = ((*this->externalhistoryArray)->Getlocationj() / 3);
@@ -284,7 +283,7 @@ void PuzzleClass::UpdateInternalArray(int FLAG){
 	
 			}
 		}
-		std::cout << "numbers possible+ for PuzzleArray[2][0]: " << PuzzleArray[0][1].Getnumberpossible() << std::endl;	
+		std::cout << "numbers possible+ for PuzzleArray[5][0]: " << PuzzleArray[5][0].Getnumberpossible() << std::endl;	
 	}
 
 	else if (FLAG == -1){
@@ -305,7 +304,7 @@ void PuzzleClass::UpdateInternalArray(int FLAG){
 
 			}
 		}
-		std::cout << "numbers possible- for PuzzleArray[2][0]: " << PuzzleArray[0][1].Getnumberpossible() << std::endl;
+		std::cout << "numbers possible- for PuzzleArray[5][0]: " << PuzzleArray[5][0].Getnumberpossible() << std::endl;
 		this->j = (*this->externalhistoryArray)->Getlocationj();
 		for (this->i = 0; this->i < 9; ++i){
 			if (((this->PuzzleArray[this->i][this->j].GetValue()) == 0) && ((*this->externalhistoryArray)->Getlocationi() != this->i)){
@@ -320,7 +319,7 @@ void PuzzleClass::UpdateInternalArray(int FLAG){
 			}
 
 		}
-		std::cout << "numbers possible- for PuzzleArray[0][1]: " << PuzzleArray[0][1].Getnumberpossible() << std::endl;		
+		std::cout << "numbers possible- for PuzzleArray[5][0]: " << PuzzleArray[5][0].Getnumberpossible() << std::endl;		
 
 		this->i = (*this->externalhistoryArray)->Getlocationi();
 		for (this->j = 0; this->j < 9; ++(this->j)){
@@ -335,7 +334,7 @@ void PuzzleClass::UpdateInternalArray(int FLAG){
 				
 			}
 		}
-		std::cout << "numbers possible- for PuzzleArray[2][0]: " << PuzzleArray[0][1].Getnumberpossible() << std::endl;
+		std::cout << "numbers possible- for PuzzleArray[5][0]: " << PuzzleArray[5][0].Getnumberpossible() << std::endl;
 	}
 }
 

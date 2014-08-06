@@ -87,6 +87,7 @@ int PossibilitiesSquare::EnterValue(){
 			if (this->value > 0){
 				++(this->historyCounter);
 				//++timesthrough;
+				std::cout << "Value placed: " << this->value << std::endl;
 				std::cout << "location of placed square: " << locationi << " " << locationj << std::endl;				
 				return 1;
 			}		
