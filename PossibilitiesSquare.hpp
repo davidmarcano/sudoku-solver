@@ -20,6 +20,8 @@ class PossibilitiesSquare {
 
 	public:
 
+		void GetValueAddress();
+
 		int Getnumberpossible();
 
 		//void GetpossibleNumbers();

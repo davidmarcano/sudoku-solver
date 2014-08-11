@@ -4,6 +4,10 @@
 #include "PuzzleClass.hpp"
 
 
+void PossibilitiesSquare::GetValueAddress() {
+	std::cout <<  &(this->value) << std::endl;
+}
+
 int PossibilitiesSquare::GetValue() {
 	return this->value;
 }
