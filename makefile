@@ -1,20 +1,20 @@
 CPP = g++
 FLAGS = -Wall -g -std=c++11
 
-all: main
+all: main.exe
 
-main: main.o Solver.o Parser.o PuzzleClass.o PossibilitiesSquare.o
-	$(CPP) $(FLAGS) -o main main.o Solver.o Parser.o PuzzleClass.o PossibilitiesSquare.o
-main.o: main.cpp Solver.hpp Parser.hpp PuzzleClass.hpp PossibilitiesSquare.hpp
-	$(CPP) $(FLAGS) -c main.cpp 
-Solver.o: Solver.cpp Solver.hpp PuzzleClass.hpp PuzzleClass.cpp PossibilitiesSquare.hpp PossibilitiesSquare.cpp
-	$(CPP) $(FLAGS) -c Solver.cpp
-Parser.o: Parser.hpp Parser.cpp PuzzleClass.hpp PuzzleClass.cpp
-	$(CPP) $(FLAGS) -c Parser.cpp
-PuzzleClass.o: PuzzleClass.cpp PuzzleClass.hpp PuzzleClass.cpp PossibilitiesSquare.hpp PossibilitiesSquare.cpp
-	$(CPP) $(FLAGS) -c PuzzleClass.cpp
-PossibilitiesSquare.o: PossibilitiesSquare.cpp PossibilitiesSquare.hpp PuzzleClass.hpp PuzzleClass.cpp
-	$(CPP) $(FLAGS) -c PossibilitiesSquare.cpp
+main.exe: main.obj Solver.obj Parser.obj PuzzleClass.obj PossibilitiesSquare.obj
+	$(CPP) $(FLAGS) -o main.exe main.obj Solver.obj Parser.obj PuzzleClass.obj PossibilitiesSquare.obj
+main.obj: main.cpp Solver.hpp Parser.hpp PuzzleClass.hpp PossibilitiesSquare.hpp
+	$(CPP) $(FLAGS) -o main.obj -c main.cpp 
+Solver.obj: Solver.cpp Solver.hpp PuzzleClass.hpp PuzzleClass.cpp PossibilitiesSquare.hpp PossibilitiesSquare.cpp
+	$(CPP) $(FLAGS) -o Solver.obj -c Solver.cpp
+Parser.obj: Parser.hpp Parser.cpp PuzzleClass.hpp PuzzleClass.cpp
+	$(CPP) $(FLAGS) -o Parser.obj -c Parser.cpp
+PuzzleClass.obj: PuzzleClass.cpp PuzzleClass.hpp PuzzleClass.cpp PossibilitiesSquare.hpp PossibilitiesSquare.cpp
+	$(CPP) $(FLAGS) -o PuzzleClass.obj -c PuzzleClass.cpp
+PossibilitiesSquare.obj: PossibilitiesSquare.cpp PossibilitiesSquare.hpp PossibilitiesSquare.cpp PuzzleClass.hpp PuzzleClass.cpp
+	$(CPP) $(FLAGS) -o PossibilitiesSquare.obj -c PossibilitiesSquare.cpp
 
 clean:
-	rm -rf main *.o
+	rm -rf main.exe *.obj	
