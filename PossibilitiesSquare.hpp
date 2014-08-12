@@ -14,11 +14,14 @@ class PossibilitiesSquare {
 		int possibleNumbers[9] = {1,2,3,4,5,6,7,8,9};
 		int	numberpossible = 9;
 		int timesthrough = 0;
-		int * internalhistoryArray = new int();
+		//int * internalhistoryArray = new int();
+		int * internalhistoryArray = new int[162];
 		int internalupdateValue = 0;
 		int historyCounter = 0;
 
 	public:
+
+		void GetValueAddress();
 
 		int Getnumberpossible();
 

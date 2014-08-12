@@ -4,6 +4,10 @@
 #include "PuzzleClass.hpp"
 
 
+void PossibilitiesSquare::GetValueAddress() {
+	std::cout <<  &(this->value) << std::endl;
+}
+
 int PossibilitiesSquare::GetValue() {
 	return this->value;
 }
@@ -40,11 +44,13 @@ int PossibilitiesSquare::Getnumberpossible(){
 
 void PossibilitiesSquare::UpdateinternalhistoryArray(int squarevalue){
 	if (this->possibleNumbers[squarevalue - 1] != 0){
-		++(this->internalhistoryArray);
+		((this->internalhistoryArray)++);
+		//this->internalhistoryArray = new int[1];
 		*(this->internalhistoryArray) = squarevalue;
 	}
 	else if (this->possibleNumbers[squarevalue - 1] == 0){
-		++(this->internalhistoryArray);
+		((this->internalhistoryArray)++);
+		//this->internalhistoryArray = new int[1];
 		*(this->internalhistoryArray) = 0;
 	}
 }
@@ -75,7 +81,7 @@ void PossibilitiesSquare::SetPossibilities(int * NumbersSeenArray, const int Arr
 
 //This function takes the square with the least available numbers as input, and enters the smallest one available as it's value.
 int PossibilitiesSquare::EnterValue(){
-	std::cout << "Value of numberpossible: " << numberpossible << std::endl;
+	//std::cout << "Value of numberpossible: " << numberpossible << std::endl;
 	for (; this->historyCounter < 10; ++(this->historyCounter)){
 		//needed to reset the value to zero before reversing the update array.
 		if (this->historyCounter == 9){
@@ -87,8 +93,8 @@ int PossibilitiesSquare::EnterValue(){
 			if (this->value > 0){
 				++(this->historyCounter);
 				//++timesthrough;
-				std::cout << "Value placed: " << this->value << std::endl;
-				std::cout << "location of placed square: " << locationi << " " << locationj << std::endl;				
+				//std::cout << "Value placed: " << this->value << std::endl;
+				//std::cout << "location of placed square: " << locationi << " " << locationj << std::endl;				
 				return 1;
 			}		
 		}
@@ -98,7 +104,7 @@ int PossibilitiesSquare::EnterValue(){
 	//for (int i = 0; i < timesthrough; ++i){
 	//	this->ResetexternalArray(-1);
 	//}
-	std::cout << "Could not place properly" <<std::endl;
+	//std::cout << "Could not place properly" <<std::endl;
 	return 0; 	
 }
 
@@ -114,6 +120,7 @@ void PossibilitiesSquare::UpdatePossibilities(int FLAG){
 
 	else if (FLAG == -1){
 		if (*(this->internalhistoryArray) == 0){
+			//delete[] this->internalhistoryArray;
 			--(this->internalhistoryArray);
 		}
 
@@ -121,6 +128,7 @@ void PossibilitiesSquare::UpdatePossibilities(int FLAG){
 			if ((this->possibleNumbers[(*(this->internalhistoryArray)) - 1]) == 0) {
 				this->possibleNumbers[(*(this->internalhistoryArray)) - 1] = *(this->internalhistoryArray);
 				++(this->numberpossible); //There are problems here!
+				//delete[] this->internalhistoryArray;
 				--(this->internalhistoryArray);
 			}
 		}
@@ -128,9 +136,9 @@ void PossibilitiesSquare::UpdatePossibilities(int FLAG){
 }
 
 void PossibilitiesSquare::PrintInternalHistoryArray() {
-	std::cout << "internal history: " << *(this->internalhistoryArray) << std::endl;
+	//std::cout << "internal history: " << *(this->internalhistoryArray) << std::endl;
 
-	std::cout << "possibleNumbers: ";
+	//std::cout << "possibleNumbers: ";
 	for (int i = 0; i < 9; i++) {
 		std::cout << (this->possibleNumbers)[i];
 	}
