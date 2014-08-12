@@ -35,7 +35,8 @@ void Solver::SolvePuzzle(PuzzleClass* Puzzle, Parser* Parser){
 				//std::cout << "We updated internal Array!" << std::endl;
 			}
 			++counter;
-		} while ((solverIteration < 81) && (solverIteration != -1));//26Parser->GetinitializationCounter()) && solverIteration != 0);
+		} while ((solverIteration < (81 - Parser->GetinitializationCounter())) && (solverIteration != -1));
+
 
 		if (solverIteration == -1){
 			std::cout << "Puzzle is unsolvable!" << std::endl;
@@ -43,6 +44,8 @@ void Solver::SolvePuzzle(PuzzleClass* Puzzle, Parser* Parser){
 		else {
 			std::cout << "Puzzle is solved!" << std::endl;
 			std::cout << "Number through: " << counter << std::endl;
+			solverIteration = 0;
+			skipSetMinimumSquare = false;
 		}
 	}
 	else

@@ -14,14 +14,17 @@ class Parser{
 	int initializationCounter = 0;
 	
 	public:
+		void ResetInitializationCounter();
 
 		int GetinitializationCounter();
+
+		void ParseManualInput(std::string, int, PuzzleClass *);
 
 		void ParseInput(std::ifstream *, PuzzleClass *);
 
 		void ChangetoC(std::string, char *);
 
-		int convert(int &, char);
+		int * convert(int *, char*, int);
 
 		bool getLine(std::ifstream *, char *);
 
