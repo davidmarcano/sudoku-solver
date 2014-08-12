@@ -78,7 +78,7 @@ bool PuzzleClass::CheckerAndInitializer(int * NumbersSeenArray, const int ArrayS
 					int puzzleNumber = this->PuzzleArray[i][j].GetValue();
 					NumbersSeenArray[puzzleNumber - 1]++;//is there a problem here?
 					if (NumbersSeenArray[puzzleNumber - 1] > 1){
-						std::cout << "It fails in CheckerAndInitializer" << std::endl;
+						//std::cout << "It fails in CheckerAndInitializer" << std::endl;
 						return false;
 					}
 					
@@ -101,7 +101,7 @@ bool PuzzleClass::CheckerAndInitializer(int * NumbersSeenArray, const int ArrayS
 					int puzzleNumber = this->PuzzleArray[i][j].GetValue();
 					NumbersSeenArray[puzzleNumber - 1]++;//is there a problem here?
 					if (NumbersSeenArray[puzzleNumber - 1] > 1){
-						std::cout << "It fails in CheckerAndInitializer" << std::endl;
+						//std::cout << "It fails in CheckerAndInitializer" << std::endl;
 						return false;
 					}
 					
@@ -130,7 +130,7 @@ bool PuzzleClass::CheckerAndInitializer(int * NumbersSeenArray, const int ArrayS
 						int puzzleNumber = this->PuzzleArray[i + (3 * squarei)][j + (3 * squarej)].GetValue();
 						NumbersSeenArray[puzzleNumber - 1]++;
 						if (NumbersSeenArray[puzzleNumber - 1] > 1){
-							std::cout << "It fails in CheckerAndInitializer" << std::endl;
+							//std::cout << "It fails in CheckerAndInitializer" << std::endl;
 							return false;
 						}
 					}	
@@ -208,8 +208,8 @@ void PuzzleClass::SetMinimumSquare(){
 			if (((this->PuzzleArray[i][j].GetValue()) == 0) && ((this->PuzzleArray[i][j].Getnumberpossible()) < minimum)){
 				this->minimum = this->PuzzleArray[i][j].Getnumberpossible();
 				*(this->externalhistoryArray) = &(this->PuzzleArray[i][j]);
-				std::cout << "The value of minimum: " << minimum << std::endl;
-				std::cout << " at location " << this->PuzzleArray[i][j].Getlocationi() << " " << this->PuzzleArray[i][j].Getlocationj() << std::endl;
+				//std::cout << "The value of minimum: " << minimum << std::endl;
+				//std::cout << " at location " << this->PuzzleArray[i][j].Getlocationi() << " " << this->PuzzleArray[i][j].Getlocationj() << std::endl;
 				//std::cout << "possibleNumbers: " << this->PuzzleArray[i][j].GetpossibleNumbers() << std::endl;
 			}
 		}
@@ -234,8 +234,8 @@ void PuzzleClass::UpdateExternalArray(int FLAG){
 void PuzzleClass::UpdateInternalArray(int FLAG){
 	if (FLAG == 1) {
 		//(*this->externalhistoryArray)->ResetexternalArray(1);
-		std::cout << "numbers possible++ for PuzzleArray[5][0]: " << PuzzleArray[5][0].Getnumberpossible() << std::endl;
-		std::cout << "Locationi = " << (*this->externalhistoryArray)->Getlocationi() << std::endl;
+		//std::cout << "numbers possible++ for PuzzleArray[5][0]: " << PuzzleArray[5][0].Getnumberpossible() << std::endl;
+		//std::cout << "Locationi = " << (*this->externalhistoryArray)->Getlocationi() << std::endl;
 		this->i = (*this->externalhistoryArray)->Getlocationi();
 		for (this->j = 0; this->j < 9; ++(this->j)){
 			if (((this->PuzzleArray[this->i][this->j].GetValue()) == 0) && ((*this->externalhistoryArray)->Getlocationj() != this->j)){
@@ -243,30 +243,30 @@ void PuzzleClass::UpdateInternalArray(int FLAG){
 				this->PuzzleArray[this->i][this->j].UpdatePossibilities(1);
 
 				if ((this->i == 5) && (this->j == 0)) {
-					std::cout << "row add: ";
-					this->PuzzleArray[i][j].PrintInternalHistoryArray();
+					//std::cout << "row add: ";
+					//this->PuzzleArray[i][j].PrintInternalHistoryArray();
 				}
 			}
 
 		}
-		std::cout << "numbers possible+ for PuzzleArray[5][0]: " << PuzzleArray[5][0].Getnumberpossible() << std::endl;
+		//std::cout << "numbers possible+ for PuzzleArray[5][0]: " << PuzzleArray[5][0].Getnumberpossible() << std::endl;
 
 		this->j = (*this->externalhistoryArray)->Getlocationj();
-		std::cout << "Locationj = " << (*this->externalhistoryArray)->Getlocationj() << std::endl;
-		std::cout << "Value in question = " << (*this->externalhistoryArray)->GetValue() << std::endl;
+		//std::cout << "Locationj = " << (*this->externalhistoryArray)->Getlocationj() << std::endl;
+		//std::cout << "Value in question = " << (*this->externalhistoryArray)->GetValue() << std::endl;
 		for (this->i = 0; this->i < 9; ++i){
 			if (((this->PuzzleArray[this->i][this->j].GetValue()) == 0)  && ((*this->externalhistoryArray)->Getlocationi() != this->i)){
 				this->PuzzleArray[this->i][this->j].UpdateinternalhistoryArray((*this->externalhistoryArray)->GetValue());
 				this->PuzzleArray[this->i][this->j].UpdatePossibilities(1);
 
 				if ((this->i == 5) && (this->j == 0)) {
-					std::cout << "column add: ";
-					this->PuzzleArray[i][j].PrintInternalHistoryArray();
+					//std::cout << "column add: ";
+					//this->PuzzleArray[i][j].PrintInternalHistoryArray();
 				}
 			}
 			
 		}
-		std::cout << "numbers possible+ for PuzzleArray[5][0]: " << PuzzleArray[5][0].Getnumberpossible() << std::endl;
+		//std::cout << "numbers possible+ for PuzzleArray[5][0]: " << PuzzleArray[5][0].Getnumberpossible() << std::endl;
 		
 		this->squarei = ((*this->externalhistoryArray)->Getlocationi() / 3);
 		this->squarej = ((*this->externalhistoryArray)->Getlocationj() / 3);
@@ -277,13 +277,13 @@ void PuzzleClass::UpdateInternalArray(int FLAG){
 					this->PuzzleArray[i + (3 * squarei)][j + (3 * squarej)].UpdatePossibilities(1);
 
 					if ((i + (3 * squarei) == 5) && ((j + (3 * squarej) == 0))) {
-						std::cout << "box add: ";
-						this->PuzzleArray[i + (3 * squarei)][j + (3 * squarej)].PrintInternalHistoryArray();
+						//std::cout << "box add: ";
+						//this->PuzzleArray[i + (3 * squarei)][j + (3 * squarej)].PrintInternalHistoryArray();
 					}
 				}
 			}
 		}
-		std::cout << "numbers possible+ for PuzzleArray[5][0]: " << PuzzleArray[5][0].Getnumberpossible() << std::endl;	
+		//std::cout << "numbers possible+ for PuzzleArray[5][0]: " << PuzzleArray[5][0].Getnumberpossible() << std::endl;	
 	}
 
 	else if (FLAG == -1){
@@ -293,8 +293,8 @@ void PuzzleClass::UpdateInternalArray(int FLAG){
 			for(int j = 0; j < 3; ++j){
 				if (((this->PuzzleArray[i + (3 * squarei)][j + (3 * squarej)].GetValue()) == 0) && ((((*this->externalhistoryArray)->Getlocationi()) != (i + (3 * squarei))) || (((*this->externalhistoryArray)->Getlocationj()) != (j + (3 * squarej))))){
 					if ((i + (3 * squarei) == 5) && ((j + (3 * squarej) == 0))) {
-						std::cout << "box remove: ";
-						this->PuzzleArray[i + (3 * squarei)][j + (3 * squarej)].PrintInternalHistoryArray();
+						//std::cout << "box remove: ";
+						//this->PuzzleArray[i + (3 * squarei)][j + (3 * squarej)].PrintInternalHistoryArray();
 					}
 
 					this->PuzzleArray[i + (3 * squarei)][j + (3 * squarej)].UpdatePossibilities(-1);
@@ -304,13 +304,13 @@ void PuzzleClass::UpdateInternalArray(int FLAG){
 
 			}
 		}
-		std::cout << "numbers possible- for PuzzleArray[5][0]: " << PuzzleArray[5][0].Getnumberpossible() << std::endl;
+		//std::cout << "numbers possible- for PuzzleArray[5][0]: " << PuzzleArray[5][0].Getnumberpossible() << std::endl;
 		this->j = (*this->externalhistoryArray)->Getlocationj();
 		for (this->i = 0; this->i < 9; ++i){
 			if (((this->PuzzleArray[this->i][this->j].GetValue()) == 0) && ((*this->externalhistoryArray)->Getlocationi() != this->i)){
 				if ((this->i == 5) && (this->j == 0)) {
-					std::cout << "column remove: ";
-					this->PuzzleArray[i][j].PrintInternalHistoryArray();
+					//std::cout << "column remove: ";
+					//this->PuzzleArray[i][j].PrintInternalHistoryArray();
 				}
 
 				this->PuzzleArray[this->i][this->j].UpdatePossibilities(-1);
@@ -319,14 +319,14 @@ void PuzzleClass::UpdateInternalArray(int FLAG){
 			}
 
 		}
-		std::cout << "numbers possible- for PuzzleArray[5][0]: " << PuzzleArray[5][0].Getnumberpossible() << std::endl;		
+		//std::cout << "numbers possible- for PuzzleArray[5][0]: " << PuzzleArray[5][0].Getnumberpossible() << std::endl;		
 
 		this->i = (*this->externalhistoryArray)->Getlocationi();
 		for (this->j = 0; this->j < 9; ++(this->j)){
 			if (((this->PuzzleArray[this->i][this->j].GetValue()) == 0) && ((*this->externalhistoryArray)->Getlocationj() != this->j)){
 				if ((this->i == 5) && (this->j == 0)) {
-					std::cout << "row remove: ";
-					this->PuzzleArray[i][j].PrintInternalHistoryArray();
+					//std::cout << "row remove: ";
+					//this->PuzzleArray[i][j].PrintInternalHistoryArray();
 				}
 
 				this->PuzzleArray[this->i][this->j].UpdatePossibilities(-1);
@@ -334,7 +334,7 @@ void PuzzleClass::UpdateInternalArray(int FLAG){
 				
 			}
 		}
-		std::cout << "numbers possible- for PuzzleArray[5][0]: " << PuzzleArray[5][0].Getnumberpossible() << std::endl;
+		//std::cout << "numbers possible- for PuzzleArray[5][0]: " << PuzzleArray[5][0].Getnumberpossible() << std::endl;
 	}
 }
 
