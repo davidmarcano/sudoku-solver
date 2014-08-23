@@ -11,7 +11,8 @@ class PossibilitiesSquare {
 		int locationj = 0;
 		int Squarei = 0;
 		int Squarej = 0;
-		int possibleNumbers[9] = {1,2,3,4,5,6,7,8,9};
+		//std::array<int, 9> possibleNumbers;
+		//int possibleNumbers[9] = {1,2,3,4,5,6,7,8,9};
 		int	numberpossible = 9;
 		int timesthrough = 0;
 		//int * internalhistoryArray = new int();
@@ -21,11 +22,13 @@ class PossibilitiesSquare {
 
 	public:
 
+		static int possibleNumbers[9];
+
+		//int possibleNumbers[9] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
 		void GetValueAddress();
 
 		int Getnumberpossible();
-
-		//void GetpossibleNumbers();
 
 		void ResetexternalArray(int);
 
